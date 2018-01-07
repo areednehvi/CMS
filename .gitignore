@@ -1,0 +1,10 @@
+CMS/bin/*
+CMS/obj/*
+CMS Businness Layer/bin/*
+CMS Businness Layer/obj/*
+CMS Data Layer/bin/*
+CMS Data Layer/obj/*
+CMS Models/bin/*
+CMS Models/obj/*
+.vs/CMS/v14/.suo
+.vs/CMS/v14/.suo

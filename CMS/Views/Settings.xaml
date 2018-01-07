@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="CMS.Views.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CMS.Views"
+             xmlns:vm="clr-namespace:CMS.Controllers"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="1067">
+    <UserControl.DataContext>
+        <vm:SettingsController />
+    </UserControl.DataContext>
+    <Grid>
+        <materialDesign:Card Margin="0,30,0,0">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FFE4FFE8" >
+                    <Label VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="DemiBold"   Content="No of rows in grids" Width="Auto" FontSize="16" Foreground="#FF009688" />    
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
+                    <ComboBox VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding Settings.NoOfRowsInGrids}" DisplayMemberPath="name" SelectedValuePath="id"   SelectedItem="{Binding SelectedNoOfRowsInGrids,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedValue="{Binding SelectedNoOfRowsInGrids.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="30,0,30,0"  />
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
+                    <Label VerticalContentAlignment="Center" Margin="20,0,0,0"  HorizontalAlignment="Left" Content="(Choose no of records you would want to see in all grids)" FontStyle="Italic" />
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FFE4FFE8" >
+                    <Label VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="DemiBold" Content="Always show menu bar" Width="Auto" FontSize="16" Foreground="#FF009688" />
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
+                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding Settings.AlwaysShowMenuBar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="30,0,0,0" Content="{Binding Settings.AlwaysShowMenuBar}" ></CheckBox>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3" >
+                    <Label VerticalAlignment="Center" Margin="20,0,0,0"  HorizontalAlignment="Left" Content="(Tick the checkbox if you always want the menu bar to be visible)" FontStyle="Italic"/>
+                </Border>
+
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

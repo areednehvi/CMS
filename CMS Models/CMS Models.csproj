@@ -7,8 +7,8 @@
     <ProjectGuid>{D6A40995-B935-4675-B113-17D1D2323BF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SMS_Models</RootNamespace>
-    <AssemblyName>SMS Models</AssemblyName>
+    <RootNamespace>CMS_Models</RootNamespace>
+    <AssemblyName>CMS Models</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

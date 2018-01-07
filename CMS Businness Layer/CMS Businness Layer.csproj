@@ -7,8 +7,8 @@
     <ProjectGuid>{20204080-6113-46B8-92DA-C714D5FDEFCC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SMS_Businness_Layer</RootNamespace>
-    <AssemblyName>SMS Businness Layer</AssemblyName>
+    <RootNamespace>CMS_Businness_Layer</RootNamespace>
+    <AssemblyName>CMS Businness Layer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

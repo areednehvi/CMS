@@ -7,8 +7,8 @@
     <ProjectGuid>{59C76492-6993-4FAE-978D-4B55ACCD16FB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SMS_Data_Layer</RootNamespace>
-    <AssemblyName>SMS Data Layer</AssemblyName>
+    <RootNamespace>CMS_Data_Layer</RootNamespace>
+    <AssemblyName>CMS Data Layer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

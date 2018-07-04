@@ -227,7 +227,7 @@ namespace CMS.Models
         private DateTime _toDate;
         private List<gradesModel> _Grades;
         private List<sectionsModel> _Sections;
-        private List<gradesModel> _objGradesModelList;
+        private List<GradesListModel> _objGradesModelList;
         private List<sectionsModel> _objSectionModelList;
 
         public List<gradesModel> Grades
@@ -344,7 +344,7 @@ namespace CMS.Models
             }
 
         }
-        public List<gradesModel> GradesList
+        public List<GradesListModel> GradesList
         {
             get
             {

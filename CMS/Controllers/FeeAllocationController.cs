@@ -413,8 +413,8 @@ namespace CMS.Controllers
             FeeAllocation.AllocateFeeToList = GetListManager.GetAllocateFeeToList();
             
             // GradesMultiComboBox
-            FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems.Add(new GradesMultiComboBoxItem(new gradesModel() { name = "All" }));
-            foreach(gradesModel grade in FeeAllocation.GradesList)
+            FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems.Add(new GradesMultiComboBoxItem(new GradesListModel() { name = "All" }));
+            foreach(GradesListModel grade in FeeAllocation.GradesList)
                 FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems.Add(new GradesMultiComboBoxItem(grade));
             // FeeMonthsMultiComboBox
             FeeAllocation.FeeMonthsMultiComboBox.FeeMonthsMultiComboBoxItems.Add(new FeeMonthsMultiComboBoxItem( new ListModel() { id ="All", name = "All" } ));
@@ -478,7 +478,7 @@ namespace CMS.Controllers
                 GradesMultiComboBoxText();
 
                 //Get Student List based on Selected Grades
-                StudentsListFiltersModel objStudentsListFilters = new StudentsListFiltersModel() { Grades = new List<gradesModel>() };
+                StudentsListFiltersModel objStudentsListFilters = new StudentsListFiltersModel() { Grades = new List<GradesListModel>() };
                 foreach (GradesMultiComboBoxItem gradesMultiComboBoxItem in FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxCheckedItems)
                 {
                     objStudentsListFilters.Grades.Add(gradesMultiComboBoxItem.Grade);
@@ -488,7 +488,7 @@ namespace CMS.Controllers
                 // StudentsMultiComboBox
                 FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems = new ObservableCollection<StudentsMultiComboBoxItem>();
                 FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.CollectionChanged += StudentsMultiComboBoxItems_CollectionChanged;
-                FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.Add(new StudentsMultiComboBoxItem(new StudentsListModel() { User = new usersModel() { full_name = "Student" }, Grade = new gradesModel() { name = "Grade" }, Section = new sectionsModel() { name = "Section" }, Student_grade_session_log = new student_grade_session_logModel() { roll_number = "Roll Number" } }));
+                FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.Add(new StudentsMultiComboBoxItem(new StudentsListModel() { User = new usersModel() { full_name = "Student" }, Grade = new GradesListModel() { name = "Grade" }, Section = new sectionsModel() { name = "Section" }, Student_grade_session_log = new student_grade_session_logModel() { roll_number = "Roll Number" } }));
                 foreach (StudentsListModel student in FeeAllocation.StudentsList)
                     FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.Add(new StudentsMultiComboBoxItem(student));
             }

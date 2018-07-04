@@ -16,7 +16,7 @@ namespace CMS.Models
         private FeeAllocationListModel _Fees;
         private ObservableCollection<FeeAllocationListModel> _FeeAllocationList;
         private List<fee_categoriesModel> _FeeCategoriesList;
-        private List<gradesModel> _GradesList;
+        private List<GradesListModel> _GradesList;
         private List<sectionsModel> _SectionsList;
         private List<StudentsListModel> _StudentsList;
         private List<ListModel> _FeeMonthsList;
@@ -82,7 +82,7 @@ namespace CMS.Models
                 OnPropertyChanged("AllocateFeeToList");
             }
         }
-        public List<gradesModel> GradesList
+        public List<GradesListModel> GradesList
         {
             get
             {
@@ -302,7 +302,7 @@ namespace CMS.Models
 
     public class GradesMultiComboBoxItem : NotifyPropertyChanged
     {
-        public gradesModel Grade { get; set; }
+        public GradesListModel Grade { get; set; }
         private bool _isChecked;
 
         public bool IsChecked
@@ -317,7 +317,7 @@ namespace CMS.Models
         }
         
 
-        public GradesMultiComboBoxItem(gradesModel _grade)
+        public GradesMultiComboBoxItem(GradesListModel _grade)
         {
             Grade = _grade;
         }

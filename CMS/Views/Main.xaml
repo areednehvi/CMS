@@ -35,6 +35,9 @@
         <DataTemplate x:Key="SessionsView" DataType="{x:Type vm:MainController}">
             <local:SessionsSetup />
         </DataTemplate>
+        <DataTemplate x:Key="CoursesView" DataType="{x:Type vm:MainController}">
+            <local:CoursesSetup />
+        </DataTemplate>
         <DataTemplate x:Key="SectionsView" DataType="{x:Type vm:MainController}">
             <local:SectionsSetup />
         </DataTemplate>
@@ -171,6 +174,7 @@
                             <ContentPresenter Content="Setup" />
                         </StackPanel>
                     </MenuItem.Header>
+                    <MenuItem Header="Courses" Margin="30,0,0,0" Width="210" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.CoursesView}}" />
                     <MenuItem Header="Session" Margin="30,0,0,0" Width="210" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.SessionsView}}" />
                     <MenuItem Header="Grades" Margin="30,0,0,0" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.GradesView}}" />
                     <MenuItem Header="Sections" Margin="30,0,0,0" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.SectionsView}}" />
@@ -188,7 +192,7 @@
                     </MenuItem.Header>
                     <!--<MenuItem Header="Fees Statement" Margin="30,0,0,0" Width="210" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.FeesStatementReportView}}" />
                     <MenuItem Header="Balance Fees" Margin="30,0,0,0" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.BalanceFeesReportView}}" />
-                    --><MenuItem Header="Transactions" Margin="30,0,0,0" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.TransactionsReportView}}" />
+                    --><MenuItem Header="Transactions" Width="210" Margin="30,0,0,0" Command="{Binding LoadViewCommand}" CommandParameter="{Binding Source={x:Static shared:ViewDefinitions.TransactionsReportView}}" />
                 </MenuItem>
                 <MenuItem Cursor="Hand" Command="{Binding LogOutCommand}">
                     <MenuItem.Header>
@@ -264,6 +268,9 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding SelectedView.Name,Mode=TwoWay}" Value="SessionsView">
                                 <Setter Property="ContentTemplate" Value="{StaticResource SessionsView}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedView.Name,Mode=TwoWay}" Value="CoursesView">
+                                <Setter Property="ContentTemplate" Value="{StaticResource CoursesView}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding SelectedView.Name,Mode=TwoWay}" Value="UsersView">
                                 <Setter Property="ContentTemplate" Value="{StaticResource UsersView}" />

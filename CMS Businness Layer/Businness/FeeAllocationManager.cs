@@ -113,7 +113,7 @@ namespace SMS_Businness_Layer.Businness
             ObservableCollection<FeeMonthsMultiComboBoxItem> FeeMonthsMultiComboBoxCheckedItems, 
             ObservableCollection<GradesMultiComboBoxItem> GradesMultiComboBoxCheckedItems,
             ObservableCollection<StudentsMultiComboBoxItem> StudentsMultiComboBoxCheckedItems,
-            List<gradesModel> AllGradesList,
+            List<GradesListModel> AllGradesList,
             List<sectionsModel> AllSectionsList,
             LoginModel CurrentLogin, SchoolModel SchoolInfo, sessionsModel CurrentSession,
             ListModel AllocateFeeTo

@@ -9,23 +9,23 @@ using System.Windows.Input;
 
 namespace CMS.Controllers
 {
-    public class GradesSetupController :NotifyPropertyChanged
+    public class CoursesSetupController :NotifyPropertyChanged
     {
         #region Fields
-        private GradesSetupModel _GradesSetup;      
+        private CoursesSetupModel _CoursesSetup;      
 
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
-        private ICommand _addNewGradeCommand;
-        private ICommand _cancelNewGradeCommand;
-        private ICommand _saveGradesCommand;
+        private ICommand _addNewCourseCommand;
+        private ICommand _cancelNewCourseCommand;
+        private ICommand _saveCoursesCommand;
         #endregion
 
         #region Constructor
-        public GradesSetupController()
+        public CoursesSetupController()
         {
 
-            _GradesSetup = new GradesSetupModel()
+            _CoursesSetup = new CoursesSetupModel()
             {
                 CurrentLogin = new LoginModel(),
                 SchoolInfo = new SchoolModel()
@@ -35,7 +35,7 @@ namespace CMS.Controllers
             GetGlobalObjects();
 
             // Get Lists
-            this.GetDropDownLists();
+            //this.GetDropDownLists();
 
             //Get Settings
             this.GetSettings();
@@ -43,29 +43,25 @@ namespace CMS.Controllers
             this.ResetPagination();
 
             //Subscribe to Model's Property changed event
-            this.GradesSetup.PropertyChanged += (s, e) => {
-                if (e.PropertyName == "SelectedItemInGradesList")
+            this.CoursesSetup.PropertyChanged += (s, e) => {
+                if (e.PropertyName == "SelectedItemInCoursesList")
                 {
-                    GradesSetup.Grade = GradesSetup.SelectedItemInGradesList;
-                    if (GradesSetup.Grade != null)
-                    {
-                        GradesSetup.Grade.Course = GradesSetup.CoursesList.Find(x => x.id_offline == GradesSetup.Grade.course_id);
-                    }
+                    CoursesSetup.Course = CoursesSetup.SelectedItemInCoursesList;
                     this.ShowForm();
                 }
             };
 
             
 
-            //Get Initial Grades list
-            this.GetGradesList();
+            //Get Initial Courses list
+            this.GetCoursesList();
 
             //Initialize  Commands
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
-            _addNewGradeCommand = new RelayCommand(AddNewGrade, CanAddNewGrade);
-            _cancelNewGradeCommand = new RelayCommand(CancelNewGrade, CanCancelNewGrade);
-            _saveGradesCommand = new RelayCommand(SaveGrades, CanSaveGrades);
+            _addNewCourseCommand = new RelayCommand(AddNewCourse, CanAddNewCourse);
+            _cancelNewCourseCommand = new RelayCommand(CancelNewCourse, CanCancelNewCourse);
+            _saveCoursesCommand = new RelayCommand(SaveCourses, CanSaveCourses);
 
             this.ShowList();
         }
@@ -74,16 +70,16 @@ namespace CMS.Controllers
 
         #region Properties
 
-        public GradesSetupModel GradesSetup
+        public CoursesSetupModel CoursesSetup
         {
             get
             {
-                return _GradesSetup;
+                return _CoursesSetup;
             }
             set
             {
-                _GradesSetup = value;
-                OnPropertyChanged("GradesSetup");
+                _CoursesSetup = value;
+                OnPropertyChanged("CoursesSetup");
             }
         }
        
@@ -105,12 +101,12 @@ namespace CMS.Controllers
         {
             try
             {
-                GradesSetup.pageNo++;
-                GradesSetup.PageNo = "Page No : " + GradesSetup.pageNo;
-                GradesSetup.fromRowNo = GradesSetup.toRowNo + 1;
-                GradesSetup.toRowNo = GradesSetup.pageNo * GradesSetup.NoOfRecordsPerPage;
-                this.GetGradesList();
-                if (GradesSetup.pageNo > 1 && GradesSetup.GradesList.Count == 0)
+                CoursesSetup.pageNo++;
+                CoursesSetup.PageNo = "Page No : " + CoursesSetup.pageNo;
+                CoursesSetup.fromRowNo = CoursesSetup.toRowNo + 1;
+                CoursesSetup.toRowNo = CoursesSetup.pageNo * CoursesSetup.NoOfRecordsPerPage;
+                this.GetCoursesList();
+                if (CoursesSetup.pageNo > 1 && CoursesSetup.CoursesList.Count == 0)
                     MoveToPreviousPage(obj);
             }
             catch (Exception ex)
@@ -145,13 +141,13 @@ namespace CMS.Controllers
         {
             try
             {             
-                if (GradesSetup.pageNo > 1)
+                if (CoursesSetup.pageNo > 1)
                 {
-                    GradesSetup.pageNo--;
-                    GradesSetup.PageNo = "Page No : " + GradesSetup.pageNo;
-                    GradesSetup.toRowNo = GradesSetup.fromRowNo - 1;
-                    GradesSetup.fromRowNo = (GradesSetup.toRowNo + 1) - GradesSetup.NoOfRecordsPerPage;
-                    this.GetGradesList();
+                    CoursesSetup.pageNo--;
+                    CoursesSetup.PageNo = "Page No : " + CoursesSetup.pageNo;
+                    CoursesSetup.toRowNo = CoursesSetup.fromRowNo - 1;
+                    CoursesSetup.fromRowNo = (CoursesSetup.toRowNo + 1) - CoursesSetup.NoOfRecordsPerPage;
+                    this.GetCoursesList();
                 }
 
             }
@@ -167,27 +163,27 @@ namespace CMS.Controllers
         }
         #endregion
 
-        #region AddNewGradeCommand
+        #region AddNewCourseCommand
 
-        public ICommand AddNewGradeCommand
+        public ICommand AddNewCourseCommand
         {
-            get { return _addNewGradeCommand; }
+            get { return _addNewCourseCommand; }
         }
 
 
-        public bool CanAddNewGrade(object obj)
+        public bool CanAddNewCourse(object obj)
         {
             return true;
         }
 
 
-        public void AddNewGrade(object obj)
+        public void AddNewCourse(object obj)
         {
             try
             {
-                GradesSetup.Grade = new GradesListModel()
+                CoursesSetup.Course = new CoursesListModel()
                 {
-                    CreatedBy = GradesSetup.CurrentLogin.User.full_name
+                    CreatedBy = CoursesSetup.CurrentLogin.User.full_name
                 };
                 this.ShowForm();
             }
@@ -203,21 +199,21 @@ namespace CMS.Controllers
         }
         #endregion
 
-        #region CancelNewGradeCommand
+        #region CancelNewCourseCommand
 
-        public ICommand CancelNewGradeCommand
+        public ICommand CancelNewCourseCommand
         {
-            get { return _cancelNewGradeCommand; }
+            get { return _cancelNewCourseCommand; }
         }
 
 
-        public bool CanCancelNewGrade(object obj)
+        public bool CanCancelNewCourse(object obj)
         {
             return true;
         }
 
 
-        public void CancelNewGrade(object obj)
+        public void CancelNewCourse(object obj)
         {
             try
             {
@@ -235,26 +231,26 @@ namespace CMS.Controllers
         }
         #endregion
 
-        #region SaveGradesCommand
-        public ICommand SaveGradesCommand
+        #region SaveCoursesCommand
+        public ICommand SaveCoursesCommand
         {
-            get { return _saveGradesCommand; }
+            get { return _saveCoursesCommand; }
         }
 
 
-        public bool CanSaveGrades(object obj)
+        public bool CanSaveCourses(object obj)
         {
-            return GradesSetup.Grade != null && GradesSetup.Grade.name != null && GradesSetup.Grade.Course != null;                
+            return CoursesSetup.Course != null && CoursesSetup.Course.name != null;                
         }
 
-        public void SaveGrades(object obj)
+        public void SaveCourses(object obj)
         {
             try
             {
-                if (GradesSetupManager.CreateOrModfiyGrades(GradesSetup.Grade, GradesSetup.CurrentLogin, GradesSetup.SchoolInfo))
+                if (CoursesSetupManager.CreateOrModfiyCourses(CoursesSetup.Course, CoursesSetup.CurrentLogin, CoursesSetup.SchoolInfo))
                 {
-                    GeneralMethods.ShowNotification("Notification", "Grade Saved Successfully");
-                    this.GetGradesList();
+                    GeneralMethods.ShowNotification("Notification", "Course Saved Successfully");
+                    this.GetCoursesList();
                     this.ShowList();
                 }
 
@@ -271,21 +267,15 @@ namespace CMS.Controllers
 
         }
 
-        #endregion
+        #endregion      
 
-        private void GetDropDownLists()
-        {
-
-            GradesSetup.CoursesList = GetListManager.GetCourses();
-        }
-
-
-        private void GetGradesList()
+        
+        private void GetCoursesList()
         {
             try
             {
-                GradesSetup.GradesList = GradesSetupManager.GetGradesList(GradesSetup.fromRowNo, GradesSetup.toRowNo);
-                GradesSetup.NoRecordsFound = GradesSetup.GradesList.Count > 0 ? "Collapsed" : "Visible";
+                CoursesSetup.CoursesList = CoursesSetupManager.GetCoursesList(CoursesSetup.fromRowNo, CoursesSetup.toRowNo);
+                CoursesSetup.NoRecordsFound = CoursesSetup.CoursesList.Count > 0 ? "Collapsed" : "Visible";
             }
             catch (Exception ex)
             {
@@ -301,38 +291,38 @@ namespace CMS.Controllers
 
         private void ShowForm()
         {
-            GradesSetup.ListVisibility = "Collapsed";
-            GradesSetup.FormVisibility = "Visible";
+            CoursesSetup.ListVisibility = "Collapsed";
+            CoursesSetup.FormVisibility = "Visible";
         }
 
         private void ShowList()
         {
-            GradesSetup.ListVisibility = "Visible";
-            GradesSetup.FormVisibility = "Collapsed";
+            CoursesSetup.ListVisibility = "Visible";
+            CoursesSetup.FormVisibility = "Collapsed";
         }
 
         private void GetGlobalObjects()
         {
             //Get the Current Login
-            GradesSetup.CurrentLogin = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+            CoursesSetup.CurrentLogin = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
             //Get College Info
-            GradesSetup.SchoolInfo = (SchoolModel)GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
+            CoursesSetup.SchoolInfo = (SchoolModel)GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
         }
 
         private void ResetPagination()
         {
-            GradesSetup.fromRowNo = 1;
-            GradesSetup.pageNo = 1;
-            GradesSetup.PageNo = "Page No : " + GradesSetup.pageNo;
-            GradesSetup.NoOfRecordsPerPage = GradesSetup.NoOfRecords;
-            GradesSetup.toRowNo = GradesSetup.pageNo * GradesSetup.NoOfRecordsPerPage;
+            CoursesSetup.fromRowNo = 1;
+            CoursesSetup.pageNo = 1;
+            CoursesSetup.PageNo = "Page No : " + CoursesSetup.pageNo;
+            CoursesSetup.NoOfRecordsPerPage = CoursesSetup.NoOfRecords;
+            CoursesSetup.toRowNo = CoursesSetup.pageNo * CoursesSetup.NoOfRecordsPerPage;
         }
 
 
         private void GetSettings()
         {
             string noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
-            GradesSetup.NoOfRecords = noOfRecords != null ? Convert.ToInt32(noOfRecords) : 50;
+            CoursesSetup.NoOfRecords = noOfRecords != null ? Convert.ToInt32(noOfRecords) : 50;
         }
 
 

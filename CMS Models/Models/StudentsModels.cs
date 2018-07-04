@@ -16,7 +16,7 @@ namespace CMS.Models
         private StudentsListModel _SelectedItemInStudentsList;
         private StudentsListModel _Student;
         private ObservableCollection<StudentsListModel> _StudentsList;
-        private List<gradesModel> _GradesList;
+        private List<GradesListModel> _GradesList;
         private List<sectionsModel> _SectionsList;
         private List<ListModel> _BloodGroupList;
         private List<ListModel> _GenderList;
@@ -58,7 +58,7 @@ namespace CMS.Models
                 OnPropertyChanged("StudentsList");
             }
         }
-        public List<gradesModel> GradesList
+        public List<GradesListModel> GradesList
         {
             get
             {
@@ -245,7 +245,7 @@ namespace CMS.Models
     {
         private usersModel _User;
         private parentsModel _Parents;
-        private gradesModel _Grade;
+        private GradesListModel _Grade;
         private sectionsModel _Section;
         private sessionsModel _Session;
         private ListModel _BloodGroup;
@@ -289,7 +289,7 @@ namespace CMS.Models
                 OnPropertyChanged("Parents");
             }
         }
-        public gradesModel Grade
+        public GradesListModel Grade
         {
             get
             {
@@ -380,14 +380,14 @@ namespace CMS.Models
     {
         private gradesModel _Grade;
         private sectionsModel _Section;
-        private List<gradesModel> _Grades;
+        private List<GradesListModel> _Grades;
         private List<sectionsModel> _Sections;
         private string _rollNumber;
         private string _registrationID;
-        private List<gradesModel> _objGradesModelList;
+        private List<GradesListModel> _objGradesModelList;
         private List<sectionsModel> _objSectionModelList;
 
-        public List<gradesModel> Grades
+        public List<GradesListModel> Grades
         {
             get
             {
@@ -470,7 +470,7 @@ namespace CMS.Models
 
         }
 
-        public List<gradesModel> GradesList
+        public List<GradesListModel> GradesList
         {
             get
             {

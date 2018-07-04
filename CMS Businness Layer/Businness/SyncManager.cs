@@ -935,7 +935,7 @@ namespace SMS_Businness_Layer.Businness
                 DataTable table = new DataTable();
                 table.Columns.Add("id", typeof(string));
                 table.Columns.Add("school_id", typeof(string));
-                table.Columns.Add("course", typeof(string));
+                table.Columns.Add("course_id", typeof(string));
                 table.Columns.Add("name", typeof(string));
                 table.Columns.Add("order", typeof(string));
                 table.Columns.Add("created_by", typeof(string));
@@ -946,7 +946,7 @@ namespace SMS_Businness_Layer.Businness
                 table.Rows.Add(
                                 obj.id_offline,
                                 obj.school_id,
-                                obj.course,
+                                obj.course_id,
                                 obj.name,
                                 obj.order,
                                 obj.created_by,

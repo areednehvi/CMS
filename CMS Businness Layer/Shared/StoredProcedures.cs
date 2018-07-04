@@ -14,6 +14,7 @@ namespace SMS_Businness_Layer.Shared
         public static string GetGradesList = "GetGradesList";
         public static string GetSectionsList = "GetSectionsList";
         public static string GetSessionsList = "GetSessionsList";
+        public static string GetCoursesList = "GetCoursesList";
         public static string GetUsersList = "GetUsersList";
         public static string GetStudentsList = "GetStudentsList";
         public static string GetFeeCategoriesList = "GetFeeCategoriesList";
@@ -62,6 +63,7 @@ namespace SMS_Businness_Layer.Shared
         public static string IsSchoolSetup = "IsSchoolSetup";
         public static string CreateOrModifyGrades = "CreateOrModifyGrades";
         public static string CreateOrModifySessions = "CreateOrModifySessions";
+        public static string CreateOrModifyCourses = "CreateOrModifyCourses";
         public static string CreateOrModifySections = "CreateOrModifySections";
         public static string CreateOrModifyUsers = "CreateOrModifyUsers"; 
         public static string CreateOrModifyStudents = "CreateOrModifyStudents";

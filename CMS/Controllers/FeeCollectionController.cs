@@ -282,7 +282,7 @@ namespace CMS.Controllers
         private void GetDropDownLists()
         {
 
-            FeeCollectionListFilters.GradesList = GetListManager.GetGrades();
+            FeeCollectionListFilters.GradesList = GradesSetupManager.GetAllGrades();
             FeeCollectionListFilters.SectionsList = GetListManager.GetSections();
         }
 

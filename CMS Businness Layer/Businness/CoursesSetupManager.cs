@@ -14,11 +14,11 @@ using static SMS_Models.Models.DBModels;
 
 namespace SMS_Businness_Layer.Businness
 {
-    public class GradesSetupManager
+    public class CoursesSetupManager
     {
 
         #region List      
-        public static ObservableCollection<GradesListModel> GetGradesList(Int64 fromRowNo, Int64 toRowNo)
+        public static ObservableCollection<CoursesListModel> GetCoursesList(Int64 fromRowNo, Int64 toRowNo)
         {            
             try
             {
@@ -27,8 +27,8 @@ namespace SMS_Businness_Layer.Businness
                     new SqlParameter() {ParameterName = "@FromRowNo",     SqlDbType = SqlDbType.NVarChar, Value = fromRowNo},
                     new SqlParameter() {ParameterName = "@ToRowNo",  SqlDbType = SqlDbType.NVarChar, Value = toRowNo}                   
                 };
-                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetGradesList, lstSqlParameters);
-                return MapDatatableTogradesListObject(objDatable);
+                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetCoursesList, lstSqlParameters);
+                return MapDatatableToCoursesListObject(objDatable);
 
             }
             catch(Exception ex)
@@ -41,7 +41,7 @@ namespace SMS_Businness_Layer.Businness
             }            
             
         }
-        public static List<GradesListModel> GetAllGrades(Boolean IncludeAllOption = false)
+        public static List<coursesModel> GetAllCourses(Boolean IncludeAllOption = false)
         {
             try
             {
@@ -50,8 +50,8 @@ namespace SMS_Businness_Layer.Businness
                     new SqlParameter() {ParameterName = "@FromRowNo",     SqlDbType = SqlDbType.NVarChar, Value = 1},
                     new SqlParameter() {ParameterName = "@ToRowNo",  SqlDbType = SqlDbType.NVarChar, Value = Int64.MaxValue}
                 };
-                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetGradesList, lstSqlParameters);
-                return MapDatatableTogradesObject(objDatable,IncludeAllOption);
+                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetCoursesList, lstSqlParameters);
+                return MapDatatableToCoursesObject(objDatable, IncludeAllOption);
 
             }
             catch (Exception ex)
@@ -64,37 +64,56 @@ namespace SMS_Businness_Layer.Businness
             }
 
         }
-        private static ObservableCollection<GradesListModel> MapDatatableTogradesListObject(DataTable objDatatable)
+
+        private static List<coursesModel> MapDatatableToCoursesObject(DataTable objDatatable, Boolean IncludeAllOption = false)
         {
-            ObservableCollection<GradesListModel> objGradesList = new ObservableCollection<GradesListModel>();
+            List<coursesModel> objCoursesList = new List<coursesModel>();
+            try
+            {
+                if (IncludeAllOption)
+                    objCoursesList.Add(new coursesModel() { id_offline = Guid.Empty.ToString(), name = "All" });
+                foreach (DataRow row in objDatatable.Rows)
+                {
+                    coursesModel obj = new coursesModel();
+                    obj.id_offline = row["id_offline"] != DBNull.Value ? Convert.ToString(row["id_offline"]) : string.Empty;
+                    obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;
+                    obj.name = row["name"] != DBNull.Value ? Convert.ToString(row["name"]) : string.Empty;
+                    obj.created_by = row["created_by"] != DBNull.Value ? Convert.ToString(row["created_by"]) : string.Empty;
+                    obj.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : (DateTime?)null;
+                    obj.updated_by = row["updated_by"] != DBNull.Value ? Convert.ToString(row["updated_by"]) : string.Empty;
+                    obj.updated_on = row["updated_on"] != DBNull.Value ? Convert.ToDateTime(row["updated_on"]) : (DateTime?)null;
+                    objCoursesList.Add(obj);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return objCoursesList;
+        }
+
+        private static ObservableCollection<CoursesListModel> MapDatatableToCoursesListObject(DataTable objDatatable)
+        {
+            ObservableCollection<CoursesListModel> objCoursesList = new ObservableCollection<CoursesListModel>();
             try
             {
                 foreach (DataRow row in objDatatable.Rows)
                 {
-                    GradesListModel obj = new GradesListModel()
-                    {
-                        Course = new coursesModel()
-                    };
+                    CoursesListModel obj = new CoursesListModel();
                     obj.id_offline = row["id_offline"] != DBNull.Value ? Convert.ToString(row["id_offline"]) : string.Empty;
-                    obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;
-                    obj.course_id = row["course_id"] != DBNull.Value ? Convert.ToString(row["course_id"]) : string.Empty;
-                    obj.name = row["name"] != DBNull.Value ? Convert.ToString(row["name"]) : string.Empty;
-                    obj.order = row["order"] != DBNull.Value ? Convert.ToString(row["order"]) : string.Empty;
+                    obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;                    
+                    obj.name = row["name"] != DBNull.Value ? Convert.ToString(row["name"]) : string.Empty;                   
                     obj.created_by = row["created_by"] != DBNull.Value ? Convert.ToString(row["created_by"]) : string.Empty;
                     obj.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : (DateTime?)null;
                     obj.updated_by = row["updated_by"] != DBNull.Value ? Convert.ToString(row["updated_by"]) : string.Empty;
                     obj.updated_on = row["updated_on"] != DBNull.Value ? Convert.ToDateTime(row["updated_on"]) : (DateTime?)null;
                     obj.CreatedBy = row["CreatedBy"] != DBNull.Value ? Convert.ToString(row["CreatedBy"]) : string.Empty;
-                    //Courses                  
-                    obj.Course.id_offline = row["courses.id_offline"] != DBNull.Value ? Convert.ToString(row["courses.id_offline"]) : string.Empty;
-                    obj.Course.school_id = row["courses.school_id"] != DBNull.Value ? Convert.ToString(row["courses.school_id"]) : string.Empty;
-                    obj.Course.name = row["courses.name"] != DBNull.Value ? Convert.ToString(row["courses.name"]) : string.Empty;
-                    obj.Course.created_by = row["courses.created_by"] != DBNull.Value ? Convert.ToString(row["courses.created_by"]) : string.Empty;
-                    obj.Course.created_on = row["courses.created_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.created_on"]) : (DateTime?)null;
-                    obj.Course.updated_by = row["courses.updated_by"] != DBNull.Value ? Convert.ToString(row["courses.updated_by"]) : string.Empty;
-                    obj.Course.updated_on = row["courses.updated_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.updated_on"]) : (DateTime?)null;
-
-                    objGradesList.Add(obj);
+                    objCoursesList.Add(obj);
                 }
 
             }
@@ -106,81 +125,33 @@ namespace SMS_Businness_Layer.Businness
             {
 
             }
-            return objGradesList;
-        }
-        private static List<GradesListModel> MapDatatableTogradesObject(DataTable objDatatable,Boolean IncludeAllOption = false)
-        {
-            List<GradesListModel> objGradesList = new List<GradesListModel>();
-            try
-            {
-                if (IncludeAllOption)
-                    objGradesList.Add(new GradesListModel() { id_offline = Guid.Empty.ToString(), name = "All", Course = new coursesModel() { id_offline = Guid.Empty.ToString(), name = "All" } });
-                foreach (DataRow row in objDatatable.Rows)
-                {
-                    GradesListModel obj = new GradesListModel()
-                    {
-                         Course = new coursesModel()
-                    };
-                    obj.id_offline = row["id_offline"] != DBNull.Value ? Convert.ToString(row["id_offline"]) : string.Empty;
-                    obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;
-                    obj.course_id = row["course_id"] != DBNull.Value ? Convert.ToString(row["course_id"]) : string.Empty;
-                    obj.name = row["name"] != DBNull.Value ? Convert.ToString(row["name"]) : string.Empty;
-                    obj.order = row["order"] != DBNull.Value ? Convert.ToString(row["order"]) : string.Empty;
-                    obj.created_by = row["created_by"] != DBNull.Value ? Convert.ToString(row["created_by"]) : string.Empty;
-                    obj.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : (DateTime?)null;
-                    obj.updated_by = row["updated_by"] != DBNull.Value ? Convert.ToString(row["updated_by"]) : string.Empty;
-                    obj.updated_on = row["updated_on"] != DBNull.Value ? Convert.ToDateTime(row["updated_on"]) : (DateTime?)null;
-
-                    //Courses                  
-                    obj.Course.id_offline = row["courses.id_offline"] != DBNull.Value ? Convert.ToString(row["courses.id_offline"]) : string.Empty;
-                    obj.Course.school_id = row["courses.school_id"] != DBNull.Value ? Convert.ToString(row["courses.school_id"]) : string.Empty;
-                    obj.Course.name = row["courses.name"] != DBNull.Value ? Convert.ToString(row["courses.name"]) : string.Empty;
-                    obj.Course.created_by = row["courses.created_by"] != DBNull.Value ? Convert.ToString(row["courses.created_by"]) : string.Empty;
-                    obj.Course.created_on = row["courses.created_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.created_on"]) : (DateTime?)null;
-                    obj.Course.updated_by = row["courses.updated_by"] != DBNull.Value ? Convert.ToString(row["courses.updated_by"]) : string.Empty;
-                    obj.Course.updated_on = row["courses.updated_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.updated_on"]) : (DateTime?)null;
-
-                    objGradesList.Add(obj);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-
-            }
-            return objGradesList;
+            return objCoursesList;
         }
 
         #endregion
 
         #region view
-        public static Boolean CreateOrModfiyGrades(GradesListModel objGrade, LoginModel CurrentLogin, SchoolModel SchoolInfo)
+        public static Boolean CreateOrModfiyCourses(CoursesListModel objCourse, LoginModel CurrentLogin, SchoolModel SchoolInfo)
         {
             Boolean IsSuccess = false;
             try
             {
-                if(objGrade.id_offline == null) // New Grade
+                if (objCourse.id_offline == null) // New Course
                 {
-                    objGrade.id_offline = Guid.NewGuid().ToString();
-                    objGrade.id_online = Guid.Empty.ToString();
-                    objGrade.created_by = CurrentLogin.User.id_offline;
-                    objGrade.created_on = DateTime.Now;
-                    objGrade.school_id = SchoolInfo.id_offline;
-                    objGrade.order = string.Empty;
+                    objCourse.id_offline = Guid.NewGuid().ToString();
+                    objCourse.id_online = Guid.Empty.ToString();
+                    objCourse.created_by = CurrentLogin.User.id_offline;
+                    objCourse.created_on = DateTime.Now;
+                    objCourse.school_id = SchoolInfo.id_offline;
                 }
-                objGrade.course_id = objGrade.Course.id_offline;            
-                objGrade.updated_by = CurrentLogin.User.id_offline;
-                objGrade.updated_on = DateTime.Now;
-                                
-                DataTable objDatatable = MapGradeListObjectToDataTable(objGrade);
+                objCourse.updated_by = CurrentLogin.User.id_offline;
+                objCourse.updated_on = DateTime.Now;
+
+                DataTable objDatatable = MapCourseListObjectToDataTable(objCourse);
                 SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
-                objSqlParameter.TypeName = DBTableTypes.grades;
+                objSqlParameter.TypeName = DBTableTypes.courses;
                 objSqlParameter.Value = objDatatable;
-                IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.CreateOrModifyGrades, objSqlParameter);
+                IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.CreateOrModifyCourses, objSqlParameter);
                 
             }
             catch (Exception ex)
@@ -194,17 +165,15 @@ namespace SMS_Businness_Layer.Businness
             return IsSuccess;
         }
 
-        private static DataTable MapGradeListObjectToDataTable(GradesListModel obj)
+        private static DataTable MapCourseListObjectToDataTable(CoursesListModel obj)
         {
             try
             {
                 DataTable table = new DataTable();
                 table.Columns.Add("id_offline", typeof(string));
                 table.Columns.Add("id_online", typeof(string));
-                table.Columns.Add("school_id", typeof(string));
-                table.Columns.Add("course_id", typeof(string));
+                table.Columns.Add("school_id", typeof(string));                
                 table.Columns.Add("name", typeof(string));
-                table.Columns.Add("order", typeof(string));
                 table.Columns.Add("created_by", typeof(string));
                 table.Columns.Add("created_on", typeof(DateTime));
                 table.Columns.Add("updated_by", typeof(string));
@@ -213,10 +182,8 @@ namespace SMS_Businness_Layer.Businness
                 table.Rows.Add(
                                 obj.id_offline,
                                 obj.id_online, 
-                                obj.school_id,
-                                obj.course_id,
+                                obj.school_id,                                
                                 obj.name,
-                                obj.order,
                                 obj.created_by,
                                 obj.created_on,
                                 obj.updated_by,
@@ -233,8 +200,7 @@ namespace SMS_Businness_Layer.Businness
 
             }
         }
-
-        public static DataTable MapGradeObjectToDataTable(gradesModel obj)
+        public static DataTable MapCourseObjectToDataTable(coursesModel obj)
         {
             try
             {
@@ -242,9 +208,7 @@ namespace SMS_Businness_Layer.Businness
                 table.Columns.Add("id_offline", typeof(string));
                 table.Columns.Add("id_online", typeof(string));
                 table.Columns.Add("school_id", typeof(string));
-                table.Columns.Add("course_id", typeof(string));
                 table.Columns.Add("name", typeof(string));
-                table.Columns.Add("order", typeof(string));
                 table.Columns.Add("created_by", typeof(string));
                 table.Columns.Add("created_on", typeof(DateTime));
                 table.Columns.Add("updated_by", typeof(string));
@@ -254,9 +218,7 @@ namespace SMS_Businness_Layer.Businness
                                 obj.id_offline,
                                 obj.id_online,
                                 obj.school_id,
-                                obj.course_id,
                                 obj.name,
-                                obj.order,
                                 obj.created_by,
                                 obj.created_on,
                                 obj.updated_by,
@@ -273,7 +235,7 @@ namespace SMS_Businness_Layer.Businness
 
             }
         }
-        public static DataTable MapGradesObjectToDataTable(List<GradesListModel> objGrades)
+        public static DataTable MapCoursesObjectToDataTable(List<coursesModel> objList)
         {
             try
             {
@@ -281,29 +243,26 @@ namespace SMS_Businness_Layer.Businness
                 table.Columns.Add("id_offline", typeof(string));
                 table.Columns.Add("id_online", typeof(string));
                 table.Columns.Add("school_id", typeof(string));
-                table.Columns.Add("course_id", typeof(string));
                 table.Columns.Add("name", typeof(string));
-                table.Columns.Add("order", typeof(string));
                 table.Columns.Add("created_by", typeof(string));
                 table.Columns.Add("created_on", typeof(DateTime));
                 table.Columns.Add("updated_by", typeof(string));
                 table.Columns.Add("updated_on", typeof(DateTime));
 
-                foreach (gradesModel obj in objGrades)
+                foreach(coursesModel obj in objList)
                 {
                     table.Rows.Add(
-                                    obj.id_offline,
-                                    obj.id_online,
-                                    obj.school_id,
-                                    obj.course_id,
-                                    obj.name,
-                                    obj.order,
-                                    obj.created_by,
-                                    obj.created_on,
-                                    obj.updated_by,
-                                    obj.updated_on
-                                  );
+                                obj.id_offline,
+                                obj.id_online,
+                                obj.school_id,
+                                obj.name,
+                                obj.created_by,
+                                obj.created_on,
+                                obj.updated_by,
+                                obj.updated_on
+                              );
                 }
+                
                 return table;
             }
             catch (Exception ex)

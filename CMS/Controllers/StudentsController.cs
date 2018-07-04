@@ -242,7 +242,7 @@ namespace CMS.Controllers
                     },
                     Session = Students.CurrentSession,
                     Section = new sectionsModel(),
-                    Grade = new gradesModel(),
+                    Grade = new GradesListModel(),
                     BloodGroup = new ListModel(),
                     Gender = new ListModel(),  
                     Status = new ListModel(),                 
@@ -385,6 +385,9 @@ namespace CMS.Controllers
             Students.SchoolInfo = (SchoolModel)GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
             //Get Current Session
             Students.CurrentSession = (SessionsListModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentSession);
+
+            if (Students.CurrentSession == null)
+                GeneralMethods.ShowDialog("Setup Current Session First", "Setup the current session before we move forward",false);
         }
 
         private void ResetPagination()

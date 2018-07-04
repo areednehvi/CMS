@@ -23,8 +23,21 @@
             <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,0,5,5" >
                 <WrapPanel Orientation="Horizontal">
                     <WrapPanel  Orientation="Horizontal" Width="210" Margin="0,5,0,20">
-                        <Label  x:Name="lblClass" Content="Class" Width="Auto" FontSize="16" Foreground="#FF009688" />
-                        <ComboBox  x:Name="cbClass" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding Students.StudentsListFilters.GradesList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding Students.StudentsListFilters.Grade,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                        <Label  x:Name="lblClass" Content="Grade" Width="Auto" FontSize="16" Foreground="#FF009688" />
+                        <ComboBox  x:Name="cbClass" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="150" ItemsSource="{Binding Students.StudentsListFilters.GradesList}" SelectedIndex="0" SelectedItem="{Binding Students.StudentsListFilters.Grade,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                <Binding Path="name" />
+                                                <Binding Path="Course.name" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </WrapPanel>
                     <WrapPanel  Orientation="Horizontal" Width="210" Margin="0,5,0,20">
                         <Label  x:Name="lblSection" Content="Section" Width="Auto" FontSize="16" Foreground="#FF009688"/>
@@ -88,7 +101,14 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Name" Binding="{Binding User.full_name}"/>
                     <DataGridTextColumn Width="*" Header="Registration #" Binding="{Binding  Student_grade_session_log.registration_id}"/>
-                    <DataGridTextColumn Width="*" Header="Grade" Binding="{Binding Grade.name}" />
+                    <DataGridTextColumn Width="*" Header="Grade">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="Grade.name" />
+                                <Binding Path="Grade.Course.name" />
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Width="*" Header="Section" Binding="{Binding Section.name}" />
                     <DataGridTextColumn Width="*" Header="Roll No." Binding="{Binding Student_grade_session_log.roll_number}" />
                     <DataGridTextColumn Width="250" Header="Parentage">
@@ -171,7 +191,20 @@
                                 <Label Content="Grade *" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF009688" />
                             </Border>
                             <Border Grid.Row="2" Grid.Column="1"  BorderThickness="1"  BorderBrush="LightGray" Background="White" >
-                                <ComboBox  FontSize="18"  Width="300" ItemsSource="{Binding Students.GradesList}" DisplayMemberPath="name" SelectedItem="{Binding Students.Student.Grade,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                <ComboBox  FontSize="18"  Width="300" ItemsSource="{Binding Students.GradesList}" SelectedItem="{Binding Students.Student.Grade,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                        <Binding Path="name" />
+                                                        <Binding Path="Course.name" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </Border>
                             <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                                 <Label Content="Section *" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF009688" />

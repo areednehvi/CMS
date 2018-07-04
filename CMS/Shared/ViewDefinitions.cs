@@ -13,6 +13,7 @@ namespace CMS.Shared
         public static View SyncView = new View() { Name = "SyncView", Title = "Sync with Online" };
         public static View SettingsView = new View() { Name = "SettingsView", Title = "Settings" };
         public static View SessionsView = new View() { Name = "SessionsView", Title = "Setup Current Session" };
+        public static View CoursesView = new View() { Name = "CoursesView", Title = "Available Courses" };
         public static View GradesView = new View() { Name = "GradesView", Title = "Setup Grades" };
         public static View SectionsView = new View() { Name = "SectionsView", Title = "Setup Sections" };
         public static View UsersView = new View() { Name = "UsersView", Title = "Manage Users" };

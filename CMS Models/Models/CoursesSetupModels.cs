@@ -9,12 +9,11 @@ using static SMS_Models.Models.DBModels;
 
 namespace CMS.Models
 {
-    public class GradesSetupModel :NotifyPropertyChanged
+    public class CoursesSetupModel :NotifyPropertyChanged
     {
-        private GradesListModel _SelectedItemInGradesList;
-        private GradesListModel _Grade;
-        private ObservableCollection<GradesListModel> _GradesList;
-        private List<coursesModel> _CoursesList;
+        private CoursesListModel _SelectedItemInCoursesList;
+        private CoursesListModel _Course;
+        private ObservableCollection<CoursesListModel> _CoursesList;
         private LoginModel _CurrentLogin;
         private SchoolModel _SchoolInfo;
         private string _ListVisibility;
@@ -28,16 +27,16 @@ namespace CMS.Models
         public int pageNo { get; set; }
         public int NoOfRecordsPerPage { get; set; }
         public int toRowNo { get; set; }
-        public ObservableCollection<GradesListModel> GradesList
+        public ObservableCollection<CoursesListModel> CoursesList
         {
             get
             {
-                return _GradesList;
+                return _CoursesList;
             }
             set
             {
-                _GradesList = value;
-                OnPropertyChanged("GradesList");
+                _CoursesList = value;
+                OnPropertyChanged("CoursesList");
             }
         }
         public string ListVisibility
@@ -89,28 +88,28 @@ namespace CMS.Models
             }
         }
 
-        public GradesListModel SelectedItemInGradesList
+        public CoursesListModel SelectedItemInCoursesList
         {
             get
             {
-                return _SelectedItemInGradesList;
+                return _SelectedItemInCoursesList;
             }
             set
             {
-                _SelectedItemInGradesList = value;
-                OnPropertyChanged("SelectedItemInGradesList");
+                _SelectedItemInCoursesList = value;
+                OnPropertyChanged("SelectedItemInCoursesList");
             }
         }
-        public GradesListModel Grade
+        public CoursesListModel Course
         {
             get
             {
-                return _Grade;
+                return _Course;
             }
             set
             {
-                _Grade = value;
-                OnPropertyChanged("Grade");
+                _Course = value;
+                OnPropertyChanged("Course");
             }
         }
 
@@ -136,49 +135,13 @@ namespace CMS.Models
                 _SchoolInfo = value;
             }
         }
-        public List<coursesModel> CoursesList
-        {
-            get
-            {
-                return _CoursesList;
-            }
-            set
-            {
-                _CoursesList = value;
-                OnPropertyChanged("CoursesList");
-            }
-        }
 
-
+        
     }
 
-    public class GradesListModel : gradesModel, INotifyPropertyChanged
+    public class CoursesListModel : coursesModel
     {
-        private coursesModel _Course;
-        public coursesModel Course
-        {
-            get
-            {
-                return _Course;
-            }
-            set
-            {
-                _Course = value;
-                OnPropertyChanged("Course");
-            }
-        }
         public string CreatedBy { get; set; }
-
-        #region INotify Members
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
     }
 
 

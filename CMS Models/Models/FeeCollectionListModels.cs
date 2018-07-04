@@ -40,7 +40,7 @@ namespace CMS.Models
         private string _rollNumber;
         private string _registrationID;
         private string _concessionAmount;
-        private ObservableCollection<GradesModel> _objGradesModelList;
+        private ObservableCollection<GradesListModel> _objGradesModelList;
         private ObservableCollection<SectionsModel> _objSectionModelList;
 
         public GradesModel Grade
@@ -113,7 +113,7 @@ namespace CMS.Models
 
         }
 
-        public ObservableCollection<GradesModel> GradesList
+        public ObservableCollection<GradesListModel> GradesList
         {
             get
             {

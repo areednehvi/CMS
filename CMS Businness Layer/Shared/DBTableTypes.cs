@@ -20,6 +20,7 @@ namespace SMS_Businness_Layer.Shared
         public static string route_vehicles = "dbo.route_vehicles";
         public static string routes = "dbo.routes";
         public static string sections = "dbo.sections";
+        public static string courses = "dbo.courses";
         public static string sessions = "dbo.sessions";
         public static string student_fees = "dbo.student_fees";
         public static string student_grade_session_log = "dbo.student_grade_session_log";

@@ -183,6 +183,7 @@ namespace CMS.Controllers
             {
                 SessionsSetup.Session = new SessionsListModel()
                 {
+                    is_active = true,
                     from_date = DateTime.Now,
                     to_date = DateTime.Now.AddYears(1),                   
                     CreatedBy = SessionsSetup.CurrentLogin.User.full_name,

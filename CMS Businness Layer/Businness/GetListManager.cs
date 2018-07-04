@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SMS_Models.Models.DBModels;
 
 namespace SMS_Businness_Layer.Businness
 {
@@ -57,6 +58,33 @@ namespace SMS_Businness_Layer.Businness
                 };
                 DataTable objDatatable = GetList(objGetListModel);
                 return MapDatatableToSectionsModelList(objDatatable);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+        }
+        public static List<coursesModel> GetCourses()
+        {
+
+            try
+            {
+
+                GetListModel objGetListModel = new GetListModel()
+                {
+                    tableName = "courses",
+                    keyColumn = "name",
+                    valueColumn = "id_offline",
+                    orderBy = "name"
+                };
+                DataTable objDatatable = GetList(objGetListModel);
+                return MapDatatableToCoursesModelList(objDatatable);
 
             }
             catch (Exception ex)
@@ -314,6 +342,33 @@ namespace SMS_Businness_Layer.Businness
 
             }
             return objSectionsModelList;
+        }
+
+        private static List<coursesModel> MapDatatableToCoursesModelList(DataTable objDatatable)
+        {
+            List<coursesModel> objCoursesModelList = new List<coursesModel>();
+            try
+            {
+                foreach (DataRow row in objDatatable.Rows)
+                {
+                    coursesModel objcoursesModel = new coursesModel();
+
+                    objcoursesModel.id_offline = row["id_offline"] != DBNull.Value ? row["id_offline"].ToString() : string.Empty;
+                    objcoursesModel.name = row["name"] != DBNull.Value ? row["name"].ToString() : string.Empty;
+
+                    objCoursesModelList.Add(objcoursesModel);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return objCoursesModelList;
         }
 
         private static ObservableCollection<FeeCategoryModel> MapDatatableToFeeCategoriesModelList(DataTable objDatatable)

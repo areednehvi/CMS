@@ -25,7 +25,7 @@ namespace SMS_Businness_Layer.Businness
                 DataTable objGradesDatatable, objSectionsDatatable;
                 if (StudentsListFilters.Grade == null || (StudentsListFilters.Grade != null && StudentsListFilters.Grade.id_offline == Guid.Empty.ToString()))
                 {
-                    List<gradesModel> gradesList = new List<gradesModel>();
+                    List<GradesListModel> gradesList = new List<GradesListModel>();
                     gradesList = StudentsListFilters.GradesList.FindAll(x=>x.id_offline != Guid.Empty.ToString());
                     objGradesDatatable = GradesSetupManager.MapGradesObjectToDataTable(gradesList);
                 }
@@ -73,7 +73,7 @@ namespace SMS_Businness_Layer.Businness
                     StudentsListModel obj = new StudentsListModel()
                     {
                         User = new usersModel(),
-                        Grade = new gradesModel(),
+                        Grade = new GradesListModel() { Course = new coursesModel() },
                         Section = new sectionsModel(),
                         Parents = new parentsModel(),
                         Session = new sessionsModel(),
@@ -134,13 +134,22 @@ namespace SMS_Businness_Layer.Businness
                     obj.Grade.id_offline = row["grades.id_offline"] != DBNull.Value ? Convert.ToString(row["grades.id_offline"]) : string.Empty;
                     obj.Grade.id_online = row["grades.id_online"] != DBNull.Value ? Convert.ToString(row["grades.id_online"]) : string.Empty;
                     obj.Grade.school_id = row["grades.school_id"] != DBNull.Value ? Convert.ToString(row["grades.school_id"]) : string.Empty;
-                    obj.Grade.course = row["grades.course"] != DBNull.Value ? Convert.ToString(row["grades.course"]) : string.Empty;
+                    obj.Grade.course_id = row["grades.course_id"] != DBNull.Value ? Convert.ToString(row["grades.course_id"]) : string.Empty;
                     obj.Grade.name = row["grades.name"] != DBNull.Value ? Convert.ToString(row["grades.name"]) : string.Empty;
                     obj.Grade.order = row["grades.order"] != DBNull.Value ? Convert.ToString(row["grades.order"]) : string.Empty;
                     obj.Grade.created_by = row["grades.created_by"] != DBNull.Value ? Convert.ToString(row["grades.created_by"]) : string.Empty;
                     obj.Grade.created_on = row["grades.created_on"] != DBNull.Value ? Convert.ToDateTime(row["grades.created_on"]) : (DateTime?)null;
                     obj.Grade.updated_by = row["grades.updated_by"] != DBNull.Value ? Convert.ToString(row["grades.updated_by"]) : string.Empty;
                     obj.Grade.updated_on = row["grades.updated_on"] != DBNull.Value ? Convert.ToDateTime(row["grades.updated_on"]) : (DateTime?)null;
+
+                    obj.Grade.Course.id_offline = row["courses.id_offline"] != DBNull.Value ? Convert.ToString(row["courses.id_offline"]) : string.Empty;
+                    obj.Grade.Course.id_online = row["courses.id_online"] != DBNull.Value ? Convert.ToString(row["courses.id_online"]) : string.Empty;
+                    obj.Grade.Course.school_id = row["courses.school_id"] != DBNull.Value ? Convert.ToString(row["courses.school_id"]) : string.Empty;
+                    obj.Grade.Course.name = row["courses.name"] != DBNull.Value ? Convert.ToString(row["courses.name"]) : string.Empty;
+                    obj.Grade.Course.created_by = row["courses.created_by"] != DBNull.Value ? Convert.ToString(row["courses.created_by"]) : string.Empty;
+                    obj.Grade.Course.created_on = row["courses.created_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.created_on"]) : (DateTime?)null;
+                    obj.Grade.Course.updated_by = row["courses.updated_by"] != DBNull.Value ? Convert.ToString(row["courses.updated_by"]) : string.Empty;
+                    obj.Grade.Course.updated_on = row["courses.updated_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.updated_on"]) : (DateTime?)null;
                     //Section
                     obj.Section.id_offline = row["sections.id_offline"] != DBNull.Value ? Convert.ToString(row["sections.id_offline"]) : string.Empty;
                     obj.Section.id_online = row["sections.id_online"] != DBNull.Value ? Convert.ToString(row["sections.id_online"]) : string.Empty;
@@ -261,7 +270,7 @@ namespace SMS_Businness_Layer.Businness
                     StudentsListModel obj = new StudentsListModel()
                     {
                         User = new usersModel(),
-                        Grade = new gradesModel(),
+                        Grade = new GradesListModel() { Course = new coursesModel() },
                         Section = new sectionsModel(),
                         Parents = new parentsModel(),
                         Session = new sessionsModel(),
@@ -322,13 +331,22 @@ namespace SMS_Businness_Layer.Businness
                     obj.Grade.id_offline = row["grades.id_offline"] != DBNull.Value ? Convert.ToString(row["grades.id_offline"]) : string.Empty;
                     obj.Grade.id_online = row["grades.id_online"] != DBNull.Value ? Convert.ToString(row["grades.id_online"]) : string.Empty;
                     obj.Grade.school_id = row["grades.school_id"] != DBNull.Value ? Convert.ToString(row["grades.school_id"]) : string.Empty;
-                    obj.Grade.course = row["grades.course"] != DBNull.Value ? Convert.ToString(row["grades.course"]) : string.Empty;
+                    obj.Grade.course_id = row["grades.course_id"] != DBNull.Value ? Convert.ToString(row["grades.course_id"]) : string.Empty;
                     obj.Grade.name = row["grades.name"] != DBNull.Value ? Convert.ToString(row["grades.name"]) : string.Empty;
                     obj.Grade.order = row["grades.order"] != DBNull.Value ? Convert.ToString(row["grades.order"]) : string.Empty;
                     obj.Grade.created_by = row["grades.created_by"] != DBNull.Value ? Convert.ToString(row["grades.created_by"]) : string.Empty;
                     obj.Grade.created_on = row["grades.created_on"] != DBNull.Value ? Convert.ToDateTime(row["grades.created_on"]) : (DateTime?)null;
                     obj.Grade.updated_by = row["grades.updated_by"] != DBNull.Value ? Convert.ToString(row["grades.updated_by"]) : string.Empty;
                     obj.Grade.updated_on = row["grades.updated_on"] != DBNull.Value ? Convert.ToDateTime(row["grades.updated_on"]) : (DateTime?)null;
+
+                    obj.Grade.Course.id_offline = row["courses.id_offline"] != DBNull.Value ? Convert.ToString(row["courses.id_offline"]) : string.Empty;
+                    obj.Grade.Course.id_online = row["courses.id_online"] != DBNull.Value ? Convert.ToString(row["courses.id_online"]) : string.Empty;
+                    obj.Grade.Course.school_id = row["courses.school_id"] != DBNull.Value ? Convert.ToString(row["courses.school_id"]) : string.Empty;                    
+                    obj.Grade.Course.name = row["courses.name"] != DBNull.Value ? Convert.ToString(row["courses.name"]) : string.Empty;                    
+                    obj.Grade.Course.created_by = row["courses.created_by"] != DBNull.Value ? Convert.ToString(row["courses.created_by"]) : string.Empty;
+                    obj.Grade.Course.created_on = row["courses.created_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.created_on"]) : (DateTime?)null;
+                    obj.Grade.Course.updated_by = row["courses.updated_by"] != DBNull.Value ? Convert.ToString(row["courses.updated_by"]) : string.Empty;
+                    obj.Grade.Course.updated_on = row["courses.updated_on"] != DBNull.Value ? Convert.ToDateTime(row["courses.updated_on"]) : (DateTime?)null;
                     //Section
                     obj.Section.id_offline = row["sections.id_offline"] != DBNull.Value ? Convert.ToString(row["sections.id_offline"]) : string.Empty;
                     obj.Section.id_online = row["sections.id_online"] != DBNull.Value ? Convert.ToString(row["sections.id_online"]) : string.Empty;

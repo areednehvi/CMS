@@ -68,6 +68,7 @@ namespace SMS_Businness_Layer.Shared
         public static string CreateOrModifyFeeCategories = "CreateOrModifyFeeCategories";
         public static string CreateOrModifyFeeAllocation = "CreateOrModifyFeeAllocation";
         public static string CreateOrModifyGradeFees = "CreateOrModifyGradeFees";
+		public static string CheckIfStudentFeesCanBeDeleted = "CheckIfStudentFeesCanBeDeleted";
         
     }
 }

@@ -22,7 +22,7 @@ namespace CMS.Controllers
         private FeeCollectionStudentListModel _selectedItemInFeeCollectionStudentList;
         private FeeCollectionListFiltersModel _FeeCollectionListFilters;
         private FeeCollectionListOtherFiledsModel _FeeCollectionListOtherFileds;
-        private GradesModel _selectedGradeModel;
+        private GradesListModel _selectedGradeModel;
         private SectionsModel _selectedSectionModel;
         private DataGrid _dataGrid;
         private int NoOfRecords;
@@ -115,7 +115,7 @@ namespace CMS.Controllers
             }
         }
 
-        public GradesModel SelectedGrade
+        public GradesListModel SelectedGrade
         {
             get { return _selectedGradeModel; }
             set
@@ -282,7 +282,7 @@ namespace CMS.Controllers
         private void GetDropDownLists()
         {
 
-            FeeCollectionListFilters.GradesList = GradesSetupManager.GetAllGrades();
+            FeeCollectionListFilters.GradesList = GradesSetupManager.GetAllGrades(true);
             FeeCollectionListFilters.SectionsList = GetListManager.GetSections();
         }
 

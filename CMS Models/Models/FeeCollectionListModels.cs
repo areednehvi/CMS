@@ -35,15 +35,15 @@ namespace CMS.Models
     }
     public class FeeCollectionListFiltersModel :NotifyPropertyChanged
     {
-        private GradesModel _grade;
+        private GradesListModel _grade;
         private SectionsModel _section;
         private string _rollNumber;
         private string _registrationID;
         private string _concessionAmount;
-        private ObservableCollection<GradesListModel> _objGradesModelList;
+        private List<GradesListModel> _objGradesModelList;
         private ObservableCollection<SectionsModel> _objSectionModelList;
 
-        public GradesModel Grade
+        public GradesListModel Grade
         {
             get
             {
@@ -113,7 +113,7 @@ namespace CMS.Models
 
         }
 
-        public ObservableCollection<GradesListModel> GradesList
+        public List<GradesListModel> GradesList
         {
             get
             {

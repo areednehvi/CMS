@@ -122,7 +122,18 @@
                             <ComboBox IsEditable="True" IsReadOnly="True" Width="300" FontSize="18" ItemsSource="{Binding FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems}" Text="{Binding FeeAllocation.GradesMultiComboBox.Text}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding Grade.name}" IsChecked="{Binding IsChecked}" />
+                                        <CheckBox IsChecked="{Binding IsChecked}" >
+                                            <CheckBox.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                                            <Binding Path="Grade.name" />
+                                                            <Binding Path="Grade.Course.name" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </CheckBox.Content>
+                                        </CheckBox>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -179,8 +190,9 @@
                                                         <Label.Content>
                                                             <TextBlock>
                                                                 <TextBlock.Text>
-                                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
                                                                         <Binding Path="Student.Grade.name" />
+                                                                        <Binding Path="Student.Grade.Course.name" />
                                                                         <Binding Path="Student.Section.name" />
                                                                     </MultiBinding>
                                                                 </TextBlock.Text>

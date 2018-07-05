@@ -413,7 +413,7 @@ namespace CMS.Controllers
             FeeAllocation.AllocateFeeToList = GetListManager.GetAllocateFeeToList();
             
             // GradesMultiComboBox
-            FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems.Add(new GradesMultiComboBoxItem(new GradesListModel() { name = "All" }));
+            FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems.Add(new GradesMultiComboBoxItem(new GradesListModel() { name = "All", Course = new coursesModel() { name = "All" } }));
             foreach(GradesListModel grade in FeeAllocation.GradesList)
                 FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxItems.Add(new GradesMultiComboBoxItem(grade));
             // FeeMonthsMultiComboBox
@@ -488,7 +488,7 @@ namespace CMS.Controllers
                 // StudentsMultiComboBox
                 FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems = new ObservableCollection<StudentsMultiComboBoxItem>();
                 FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.CollectionChanged += StudentsMultiComboBoxItems_CollectionChanged;
-                FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.Add(new StudentsMultiComboBoxItem(new StudentsListModel() { User = new usersModel() { full_name = "Student" }, Grade = new GradesListModel() { name = "Grade" }, Section = new sectionsModel() { name = "Section" }, Student_grade_session_log = new student_grade_session_logModel() { roll_number = "Roll Number" } }));
+                FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.Add(new StudentsMultiComboBoxItem(new StudentsListModel() { User = new usersModel() { full_name = "Student" }, Grade = new GradesListModel() { name = "Grade", Course = new coursesModel() { name = "Course" } }, Section = new sectionsModel() { name = "Section" }, Student_grade_session_log = new student_grade_session_logModel() { roll_number = "Roll Number" } }));
                 foreach (StudentsListModel student in FeeAllocation.StudentsList)
                     FeeAllocation.StudentsMultiComboBox.StudentsMultiComboBoxItems.Add(new StudentsMultiComboBoxItem(student));
             }
@@ -502,7 +502,7 @@ namespace CMS.Controllers
                     FeeAllocation.GradesMultiComboBox.Text = "";
                     break;
                 case 1:
-                    FeeAllocation.GradesMultiComboBox.Text = FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxCheckedItems[0].Grade.name;
+                    FeeAllocation.GradesMultiComboBox.Text = FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxCheckedItems[0].Grade.name + " - " + FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxCheckedItems[0].Grade.Course.name;
                     break;
                 default:
                     if (FeeAllocation.GradesMultiComboBox.GradesMultiComboBoxCheckedItems.Count == FeeAllocation.GradesList.Count)

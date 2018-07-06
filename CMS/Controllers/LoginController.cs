@@ -1,6 +1,7 @@
 ﻿using CMS.Models;
 using CMS.Shared;
 using CMS.Views;
+using Microsoft.Win32;
 using SMS_Businness_Layer.Businness;
 using System;
 using System.Collections.Generic;
@@ -118,6 +119,7 @@ namespace CMS.Controllers
                 Login.User.password = pwBox.Password;
                 if (LoginManager.ValidateUser(Login))
                 {
+                    CheckLicencing();
 
                     CreateLoginGlobalObject();
 
@@ -155,6 +157,40 @@ namespace CMS.Controllers
 
             }
             
+        }
+
+        private void CheckLicencing()
+        {
+            try
+            {
+                LicenseModel objLicense = LicensingManager.GetLicense();
+
+                if (objLicense.AttemptsLeftValue == 0 && objLicense.LicenseValue == "FreeTrial") //Trial Expired
+                {
+                    GeneralMethods.ShowDialog("Free Trial Expired!", "Your Trial period has expired. Click Ok to launch Licensing screen.");
+                    LicenseSetup winLicenseSetup = new LicenseSetup();
+                    winLicenseSetup.Show();
+                    Window.Close();
+
+                }
+                else if (objLicense.AttemptsLeftValue == 0 && objLicense.LicenseValue != null) //prompt to validate Licence Expired online
+                {
+                    GeneralMethods.ShowDialog("License Checkup!", "Click Ok to launch Licensing screen.");
+                    LicenseSetup winLicenseSetup = new LicenseSetup();
+                    winLicenseSetup.Show();
+                    Window.Close();
+                }
+                else
+                {
+                    //decrease no of attempts
+                    LicensingManager.DecreaseNoOfAttemptsLeft();
+                }
+            }
+            catch(Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                GeneralMethods.ShowDialog("Error", errorMessage, true);
+            }
         }
         #endregion
 

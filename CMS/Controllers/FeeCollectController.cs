@@ -455,7 +455,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -502,7 +502,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -534,7 +534,7 @@ namespace CMS.Controllers
             {
                 if (FeeCollectManager.MakePayments(MakePayment, CurrentLogin, SchoolInfo))
                 {
-                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
+                    Shared.GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
                     if(FeeCollectManager.PrintReceipt(MakePayment, CurrentLogin, SchoolInfo, FeeCollectionStudentList))
                     {
 
@@ -544,7 +544,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -587,14 +587,14 @@ namespace CMS.Controllers
                     }
                         
                 }
-                GeneralMethods.ShowNotification("Notification", "Fee Due(s) Updated Successfully!");
+                Shared.GeneralMethods.ShowNotification("Notification", "Fee Due(s) Updated Successfully!");
                 this.GetStudentFeeDueList();
 
             }
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -640,7 +640,7 @@ namespace CMS.Controllers
 
                     }
                     if(showNotification)
-                        GeneralMethods.ShowNotification("Notification", "Fee Due(s) Deleted Successfully!");
+                        Shared.GeneralMethods.ShowNotification("Notification", "Fee Due(s) Deleted Successfully!");
                     this.GetStudentFeeDueList();
                 }
 
@@ -648,7 +648,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -679,13 +679,13 @@ namespace CMS.Controllers
             try
             {
                 if(FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList,CurrentLogin))
-                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");                
+                    Shared.GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");                
 
             }
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -728,7 +728,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -772,7 +772,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -856,7 +856,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -876,7 +876,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -897,7 +897,7 @@ namespace CMS.Controllers
             catch (Exception ex)
             {
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
+                Shared.GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
             finally
             {
@@ -993,9 +993,9 @@ namespace CMS.Controllers
         private void GetGlobalObjects()
         {
             //Get the Current Login
-            _CurrentLogin = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+            _CurrentLogin = (LoginModel)Shared.GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
             //Get College Info
-            _SchoolInfo = (SchoolModel)GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
+            _SchoolInfo = (SchoolModel)Shared.GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
         }
 
         private void GetSettings()

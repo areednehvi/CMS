@@ -92,6 +92,7 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\FeeAllocationController.cs" />
     <Compile Include="Controllers\CoursesSetupController.cs" />
+    <Compile Include="Controllers\LicensingController.cs" />
     <Compile Include="Controllers\TransactionsReportController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\FeeCategoriesController.cs" />
@@ -126,6 +127,9 @@
     </Compile>
     <Compile Include="Views\CoursesSetup.xaml.cs">
       <DependentUpon>CoursesSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\License.xaml.cs">
+      <DependentUpon>License.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TransactionsReport.xaml.cs">
       <DependentUpon>TransactionsReport.xaml</DependentUpon>
@@ -189,6 +193,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CoursesSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\License.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

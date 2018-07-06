@@ -51,6 +51,7 @@
     <Compile Include="Businness\TransactionsReportManager.cs" />
     <Compile Include="Businness\StudentsManager.cs" />
     <Compile Include="Businness\FeeCategoriesManager.cs" />
+    <Compile Include="Businness\LicenseManager.cs" />
     <Compile Include="Businness\UsersManager.cs" />
     <Compile Include="Businness\SessionsSetupManager.cs" />
     <Compile Include="Businness\SectionsSetupManager.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="Businness\LoginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\DBTableTypes.cs" />
-    <Compile Include="Shared\GenericMethods.cs" />
+    <Compile Include="Shared\GeneralMethods.cs" />
     <Compile Include="Shared\LoginDefinitions.cs" />
     <Compile Include="Shared\PDFWriterEvents.cs" />
     <Compile Include="Shared\StoredProcedures.cs" />

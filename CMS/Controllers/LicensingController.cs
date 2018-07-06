@@ -19,24 +19,25 @@ using Microsoft.Win32;
 
 namespace CMS.Controllers
 {
-    public class SchoolSetupController :NotifyPropertyChanged
+    public class LicensingController :NotifyPropertyChanged
     {
         #region Fields
-        private SchoolSetupModel _SchoolSetup;
-        private ICommand _setupSchoolCommand;
+        private LicensingModel _Licensing;
+        private ICommand _validateLicenseCommand;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
         #endregion
 
         #region Constructor
-        public SchoolSetupController()
+        public LicensingController()
         {
-            _SchoolSetup = new SchoolSetupModel()
+            _Licensing = new LicensingModel()
             {
-                SchoolInfo = new SchoolModel()
+                License = new LicenseModel()
             };
+
             //Initialize  Commands
-            _setupSchoolCommand = new RelayCommand(SetupSchool, CanSetupSchool);
+            _validateLicenseCommand = new RelayCommand(ValidateLicense, CanValidateLicense);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
         }
@@ -49,45 +50,41 @@ namespace CMS.Controllers
         {
             get; set;   
         }
-        public SchoolSetupModel SchoolSetup
+        public LicensingModel Licensing
         {
             get
             {
-                return _SchoolSetup;
+                return _Licensing;
             }
             set
             {
-                _SchoolSetup = value;
+                _Licensing = value;
             }
         }
         #endregion
 
-        #region SetupSchoolCommand
-        public ICommand SetupSchoolCommand
+        #region ValidateLicenseCommand
+        public ICommand ValidateLicenseCommand
         {
-            get { return _setupSchoolCommand; }        
+            get { return _validateLicenseCommand; }        
         }
 
       
-        public bool CanSetupSchool(object obj)
+        public bool CanValidateLicense(object obj)
         {
-            return SchoolSetup.SchoolInfo!= null && 
-                SchoolSetup.SchoolInfo.name != null &&
-                SchoolSetup.SchoolInfo.phone != null &&
-                SchoolSetup.SchoolInfo.address != null;
+            return Licensing.License.LicenseValue != null;
+                
         }
 
-        public void SetupSchool(object obj)
+        public void ValidateLicense(object obj)
         {
             try
             {
-                if (SchoolSetupManager.SetSchooInfo(SchoolSetup.SchoolInfo))
+                if (LicensingManager.ValidateLicense(Licensing.License))
                 {
-                    CreateLicencing();
+                    LicensingManager.SetLicense(Licensing.License.LicenseValue);
 
-                    CreateSchoolGlobalObject();
-
-                    GeneralMethods.ShowNotification("Notification", "College Setup Successfully");
+                    GeneralMethods.ShowNotification("Notification", "License Validated Successfully");
 
                     Main winMain = new Main();
                     winMain.Show();
@@ -107,30 +104,6 @@ namespace CMS.Controllers
             
         }
 
-        private void CreateLicencing()
-        {
-            try
-            {
-                if(LicensingManager.IsCMSInstalledBefore()) //CMS installed before
-                {
-                    //prompt to validate license
-                }
-                else
-                {
-                    if(LicensingManager.SetLicense("FreeTrial"))
-                    {
-                        //Free Trial Started
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                GeneralMethods.ShowDialog("Error", errorMessage, true);
-
-            }
-        }
 
         #endregion
 
@@ -177,12 +150,7 @@ namespace CMS.Controllers
         
         #region Private Functions
 
-        private void CreateSchoolGlobalObject()
-        {
-            //Maintain state of College Info
-            SchoolSetup.SchoolInfo = SchoolSetupManager.GetSchoolInfo();
-            GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolSetup.SchoolInfo);
-        }
+        
         #endregion
 
     }

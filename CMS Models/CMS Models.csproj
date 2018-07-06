@@ -65,6 +65,7 @@
     <Compile Include="Models\FeeAllocationModels.cs" />
     <Compile Include="Models\NotifyPropertyChanged.cs" />
     <Compile Include="Models\CoursesSetupModels.cs" />
+    <Compile Include="Models\LicenseModels.cs" />
     <Compile Include="Models\TransactionsReportModels.cs" />
     <Compile Include="Models\StudentsModels.cs" />
     <Compile Include="Models\FeeCategoriesModels.cs" />

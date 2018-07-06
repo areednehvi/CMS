@@ -312,7 +312,7 @@ namespace SMS_Businness_Layer.Businness
                 }
 
                 String pathAndName = "Reports/TransactionReport_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss") + ".csv";
-                GenericMethods.ExportDatatableToExcel(table, pathAndName);
+                GeneralMethods.ExportDatatableToExcel(table, pathAndName);
                 if (File.Exists(pathAndName))
                 {
                     Process process = new Process();

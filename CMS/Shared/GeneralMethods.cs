@@ -96,5 +96,19 @@ namespace CMS.Shared
             File.WriteAllLines(pathAndName, lines);
             return true;
         }
+
+        public static string Encode(string text)
+        {
+            byte[] mybyte = System.Text.Encoding.UTF8.GetBytes(text);
+            string returntext = System.Convert.ToBase64String(mybyte);
+            return returntext;
+        }
+
+        public static string Decode(string text)
+        {
+            byte[] mybyte = System.Convert.FromBase64String(text);
+            string returntext = System.Text.Encoding.UTF8.GetString(mybyte);
+            return returntext;
+        }
     }
 }

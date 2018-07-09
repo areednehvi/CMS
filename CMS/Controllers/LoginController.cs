@@ -119,7 +119,6 @@ namespace CMS.Controllers
                 Login.User.password = pwBox.Password;
                 if (LoginManager.ValidateUser(Login))
                 {
-                    CheckLicencing();
 
                     CreateLoginGlobalObject();
 
@@ -129,13 +128,22 @@ namespace CMS.Controllers
 
                     if (SchoolSetupManager.IsSchoolSetup())
                     {
-                        
-                        CreateSchoolGlobalObject();
+                        if (!IsLicenceExpired())
+                        {
 
-                        //open Main window after authentication
-                        Main objMainWindow = new Main(Login);
-                        objMainWindow.Show();
-                        Window.Close();
+                            CreateSchoolGlobalObject();
+
+                            //open Main window after authentication
+                            Main objMainWindow = new Main(Login);
+                            objMainWindow.Show();
+                            Window.Close();
+                        }
+                        else
+                        {
+                            LicenseSetup winLicenseSetup = new LicenseSetup();
+                            winLicenseSetup.Show();
+                            Window.Close();
+                        }
                     }
                     else
                     {
@@ -144,6 +152,7 @@ namespace CMS.Controllers
                         objSchoolSetupWindow.Show();
                         Window.Close();
                     }
+                                        
                 }
                 
             }
@@ -159,31 +168,29 @@ namespace CMS.Controllers
             
         }
 
-        private void CheckLicencing()
+        private Boolean IsLicenceExpired()
         {
+            Boolean IsExpired = false;
             try
             {
                 LicenseModel objLicense = LicensingManager.GetLicense();
 
                 if (objLicense.AttemptsLeftValue == 0 && objLicense.LicenseValue == "FreeTrial") //Trial Expired
                 {
-                    GeneralMethods.ShowDialog("Free Trial Expired!", "Your Trial period has expired. Click Ok to launch Licensing screen.");
-                    LicenseSetup winLicenseSetup = new LicenseSetup();
-                    winLicenseSetup.Show();
-                    Window.Close();
+                    GeneralMethods.ShowDialog("Free Trial Expired!", "Your Trial period has expired. Kindly enter license to continue using CMS.");                    
+                    IsExpired = true;
 
                 }
                 else if (objLicense.AttemptsLeftValue == 0 && objLicense.LicenseValue != null) //prompt to validate Licence Expired online
                 {
-                    GeneralMethods.ShowDialog("License Checkup!", "Click Ok to launch Licensing screen.");
-                    LicenseSetup winLicenseSetup = new LicenseSetup();
-                    winLicenseSetup.Show();
-                    Window.Close();
+                    GeneralMethods.ShowDialog("License Checkup!", "kindly spare few minutes to validate your license.");                    
+                    IsExpired = true;
                 }
                 else
                 {
                     //decrease no of attempts
                     LicensingManager.DecreaseNoOfAttemptsLeft();
+                    IsExpired = false;
                 }
             }
             catch(Exception ex)
@@ -191,6 +198,7 @@ namespace CMS.Controllers
                 var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
                 GeneralMethods.ShowDialog("Error", errorMessage, true);
             }
+            return IsExpired;
         }
         #endregion
 

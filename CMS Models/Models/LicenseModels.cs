@@ -11,6 +11,7 @@ namespace CMS.Models
     public class LicensingModel : NotifyPropertyChanged
     {
         private LicenseModel _License;
+        private string _Status;
 
         public LicenseModel License
         {
@@ -21,6 +22,18 @@ namespace CMS.Models
             set
             {
                 _License = value;
+            }
+        }
+        public string Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                _Status = value;
+                OnPropertyChanged("Status");
             }
         }
     }
@@ -37,6 +50,7 @@ namespace CMS.Models
         public string SaltValue { get; set; }
         public string AttemptsLeftKey { get; set; }
         public string LicenseKey { get; set; }
+        public string EducationKey { get; set; }
         public Int16 AttemptsLeftValue { get; set; }
         public string LicenseValue { get; set; }
     }

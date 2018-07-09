@@ -23,6 +23,7 @@ namespace CMS.Controllers
     {
         #region Fields
         private SchoolSetupModel _SchoolSetup;
+        private LoginModel _login;
         private ICommand _setupSchoolCommand;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
@@ -35,6 +36,10 @@ namespace CMS.Controllers
             {
                 SchoolInfo = new SchoolModel()
             };
+            _login = new LoginModel();
+
+            GetGlobalObjects();
+
             //Initialize  Commands
             _setupSchoolCommand = new RelayCommand(SetupSchool, CanSetupSchool);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
@@ -60,6 +65,17 @@ namespace CMS.Controllers
                 _SchoolSetup = value;
             }
         }
+        public LoginModel Login
+        {
+            get
+            {
+                return _login;
+            }
+            set
+            {
+                _login = value;
+            }
+        }
         #endregion
 
         #region SetupSchoolCommand
@@ -83,15 +99,26 @@ namespace CMS.Controllers
             {
                 if (SchoolSetupManager.SetSchooInfo(SchoolSetup.SchoolInfo))
                 {
-                    CreateLicencing();
+                    if (LicensingManager.IsCMSInstalledBefore()) //CMS installed before
+                    {
+                        //prompt to validate license
+                        LicenseSetup winLicenseSetup = new LicenseSetup();
+                        winLicenseSetup.Show();
+                        Window.Close();
+                    }
+                    else
+                    {
 
-                    CreateSchoolGlobalObject();
+                        CreateLicencing();
 
-                    GeneralMethods.ShowNotification("Notification", "College Setup Successfully");
+                        CreateSchoolGlobalObject();
 
-                    Main winMain = new Main();
-                    winMain.Show();
-                    Window.Close();
+                        GeneralMethods.ShowNotification("Notification", "College Setup Successfully");
+
+                        Main winMain = new Main();
+                        winMain.Show();
+                        Window.Close();
+                    }
                 }
 
             }
@@ -111,18 +138,11 @@ namespace CMS.Controllers
         {
             try
             {
-                if(LicensingManager.IsCMSInstalledBefore()) //CMS installed before
+                if (LicensingManager.SetLicense("FreeTrial"))
                 {
-                    //prompt to validate license
-                }
-                else
-                {
-                    if(LicensingManager.SetLicense("FreeTrial"))
-                    {
-                        //Free Trial Started
-                    }
-                }
-
+                    //Free Trial Started
+                    GeneralMethods.ShowDialog("Free Trial Started", "Your free trial for using CMS has started! Kindly contact CMS administration Team \n to purchase license.");
+                }               
             }
             catch (Exception ex)
             {
@@ -182,6 +202,12 @@ namespace CMS.Controllers
             //Maintain state of College Info
             SchoolSetup.SchoolInfo = SchoolSetupManager.GetSchoolInfo();
             GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolSetup.SchoolInfo);
+        }
+
+        private void GetGlobalObjects()
+        {
+            //Get the Current Login
+            Login = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
         }
         #endregion
 

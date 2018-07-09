@@ -11,6 +11,8 @@ namespace CMS.Models
     {     
         public string id_offline { get; set; }
         public string id_online { get; set; }
+        public string EducationKey { get; set; }
+        public string License { get; set; }
         public string database_id { get; set; }
         public string subdomain { get; set; }
         public string domain { get; set; }

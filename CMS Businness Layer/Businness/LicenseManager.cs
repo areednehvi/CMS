@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +26,7 @@ namespace SMS_Businness_Layer.Businness
             {
                 LicenseModel objLicense = new LicenseModel()
                 {
-                     AttemptsLeftValue = 1,
+                     AttemptsLeftValue = 100,
                      LicenseValue = license
                 };     
                 RegistryKey key = Registry.CurrentUser.CreateSubKey(objLicense.RegistryFolder);
@@ -134,12 +136,23 @@ namespace SMS_Businness_Layer.Businness
             }
             return isSuccess;
         }
-        public static Boolean ValidateLicense(LicenseModel objLicense)
+        public static string ValidateLicense(LicenseModel objLicense)
         {
-            Boolean isValid = false;
+            string responseString = string.Empty;
             try
             {
-  
+
+                string url = "http://kashmirhunt.com/areed/EducationCRM/index.php?EducationKey=" + objLicense.EducationKey + "&License=" + objLicense.LicenseValue;
+                WebRequest request = WebRequest.Create(url);
+                request.ContentType = "application/json; charset=utf-8";
+                request.Method = "GET";                
+                var response = (HttpWebResponse)request.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    responseString = sr.ReadToEnd();
+                }
+
             }
             catch (Exception ex)
             {
@@ -149,7 +162,7 @@ namespace SMS_Businness_Layer.Businness
             {
 
             }
-            return isValid;
+            return responseString;
         }
 
     }

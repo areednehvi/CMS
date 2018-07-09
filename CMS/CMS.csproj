@@ -111,6 +111,7 @@
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\GlobalObjects.cs" />
+    <Compile Include="Shared\LicensingDefnitions.cs" />
     <Compile Include="Shared\SchoolSetupDefnitions.cs" />
     <Compile Include="Shared\WindowDefnitions.cs" />
     <Compile Include="Shared\SyncDefnitions.cs" />

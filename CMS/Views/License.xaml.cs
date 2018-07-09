@@ -24,7 +24,7 @@ namespace CMS.Views
         public LicenseSetup()
         {
             InitializeComponent();
-            ((SchoolSetupController)grdLicense.DataContext).Window = this;
+            ((LicensingController)grdLicense.DataContext).Window = this;
         }
     }
 }

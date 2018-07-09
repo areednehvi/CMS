@@ -60,6 +60,7 @@
                     <Grid Margin="20">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="65" />
+                            <RowDefinition Height="65" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200" />
@@ -71,11 +72,20 @@
                             <Label Content="License *" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF009688"  />
                         </Border>
                         <Border Grid.Row="0" Grid.Column="1"  BorderThickness="1"  BorderBrush="LightGray" Background="White" >
-                            <TextBox SpellCheck.IsEnabled ="True" AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.LicenseValue}" ToolTip="Enter License"  />
+                            <TextBox AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.LicenseValue}" ToolTip="Enter License"  />
+                        </Border>
+                        
+                        <!-- Row 1 -->
+                        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
+                            <Label Content="CMS Key *" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF009688"  />
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1"  BorderThickness="1"  BorderBrush="LightGray" Background="White" >
+                            <TextBox AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.EducationKey}" ToolTip="Enter License"  />
                         </Border>
       
                     </Grid>
-                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <Label  VerticalAlignment="Center" Margin="20,0,20,0" FontSize="14" Foreground="Red" FontStyle="Italic" Width="725" Height="40" Content="{Binding Licensing.Status,Mode=TwoWay}" />
                         <Button  VerticalAlignment="Center" Margin="0,0,20,0" FontSize="18" Width="140" Height="40" Content="Validate" Command="{Binding ValidateLicenseCommand}"/>
                     </StackPanel>
                 </StackPanel>

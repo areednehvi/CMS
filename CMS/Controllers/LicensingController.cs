@@ -22,6 +22,8 @@ namespace CMS.Controllers
     public class LicensingController :NotifyPropertyChanged
     {
         #region Fields
+        private LoginModel _login;
+        private SchoolModel _SchoolInfo;
         private LicensingModel _Licensing;
         private ICommand _validateLicenseCommand;
         private ICommand _minimizeCommand;
@@ -35,6 +37,10 @@ namespace CMS.Controllers
             {
                 License = new LicenseModel()
             };
+            _SchoolInfo = new SchoolModel();
+            _login = new LoginModel();
+
+            GetGlobalObjects();
 
             //Initialize  Commands
             _validateLicenseCommand = new RelayCommand(ValidateLicense, CanValidateLicense);
@@ -61,6 +67,28 @@ namespace CMS.Controllers
                 _Licensing = value;
             }
         }
+        public LoginModel Login
+        {
+            get
+            {
+                return _login;
+            }
+            set
+            {
+                _login = value;
+            }
+        }
+        public SchoolModel SchoolInfo
+        {
+            get
+            {
+                return _SchoolInfo;
+            }
+            set
+            {
+                _SchoolInfo = value;
+            }
+        }
         #endregion
 
         #region ValidateLicenseCommand
@@ -72,25 +100,47 @@ namespace CMS.Controllers
       
         public bool CanValidateLicense(object obj)
         {
-            return Licensing.License.LicenseValue != null;
-                
+            return Licensing.License.LicenseValue != null && Licensing.License.EducationKey != null;                
         }
 
         public void ValidateLicense(object obj)
         {
+            Licensing.Status = LicensingDefinitions.Validating;
+            string LicenseStatus = string.Empty;
             try
             {
-                if (LicensingManager.ValidateLicense(Licensing.License))
+                if (GeneralMethods.IsInternetAvailable())
                 {
-                    LicensingManager.SetLicense(Licensing.License.LicenseValue);
+                    LicenseStatus = LicensingManager.ValidateLicense(Licensing.License);
 
-                    GeneralMethods.ShowNotification("Notification", "License Validated Successfully");
+                    if (LicenseStatus == LicensingDefinitions.LicenseValid)
+                    {
+                        if (LicensingManager.SetLicense(Licensing.License.LicenseValue))
+                        {
 
-                    Main winMain = new Main();
-                    winMain.Show();
-                    Window.Close();
+                            GeneralMethods.ShowNotification("Notification", "License Validated Successfully");
+
+                            CreateSchoolGlobalObject();
+
+                            //open Main window after authentication
+                            Main objMainWindow = new Main(Login);
+                            objMainWindow.Show();
+                            Window.Close();
+
+                            Main winMain = new Main();
+                            winMain.Show();
+                            Window.Close();
+                        }
+                    }
+                    else if (LicenseStatus == LicensingDefinitions.LicenseInValid)
+                        Licensing.Status = LicensingDefinitions.LicenseInValidMessage;
+                    else if (LicenseStatus == LicensingDefinitions.EducationKeyInvalid)
+                        Licensing.Status = LicensingDefinitions.EducationKeyInvalidMessage;
+                    else if (LicenseStatus == LicensingDefinitions.LicenseExpired)
+                        Licensing.Status = LicensingDefinitions.LicenseExpiredMessage;
                 }
-
+                else
+                    Licensing.Status = LicensingDefinitions.InternetNotAvailable;
             }
             catch (Exception ex)
             {
@@ -145,12 +195,22 @@ namespace CMS.Controllers
         {
             Window.WindowState = WindowState.Minimized;
         }
-        #endregion        
+        #endregion
 
-        
+
         #region Private Functions
+        private void CreateSchoolGlobalObject()
+        {
+            //Maintain state of College Info
+            SchoolInfo = SchoolSetupManager.GetSchoolInfo();
+            GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolInfo);
+        }
 
-        
+        private void GetGlobalObjects()
+        {
+            //Get the Current Login
+            Login = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+        }
         #endregion
 
     }

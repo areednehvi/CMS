@@ -90,6 +90,8 @@ namespace SMS_Businness_Layer.Businness
                 objSchoolInfo.id_offline = Guid.NewGuid().ToString();
                 objSchoolInfo.id_online = Guid.Empty.ToString();
                 objSchoolInfo.created_on = DateTime.Now;
+                objSchoolInfo.EducationKey = "FreeTrial";
+                objSchoolInfo.License = "FreeTrial";
 
                 DataTable objDatatable = MapSchoolInfoToDataTable(objSchoolInfo);
                 SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
@@ -117,6 +119,8 @@ namespace SMS_Businness_Layer.Businness
                 DataTable table = new DataTable();
                 table.Columns.Add("id_offline", typeof(string));
                 table.Columns.Add("id_online", typeof(string));
+                table.Columns.Add("EducationKey", typeof(string));
+                table.Columns.Add("License", typeof(string));
                 table.Columns.Add("database_id", typeof(string));
                 table.Columns.Add("subdomain", typeof(string));
                 table.Columns.Add("domain", typeof(string));
@@ -131,6 +135,8 @@ namespace SMS_Businness_Layer.Businness
                 table.Rows.Add(
                                 obj.id_offline,
                                 obj.id_online,
+                                obj.EducationKey,
+                                obj.License,
                                 obj.database_id,
                                 obj.subdomain,
                                 obj.domain,

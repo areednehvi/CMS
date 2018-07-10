@@ -72,7 +72,7 @@
                             <Label Content="License *" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF009688"  />
                         </Border>
                         <Border Grid.Row="0" Grid.Column="1"  BorderThickness="1"  BorderBrush="LightGray" Background="White" >
-                            <TextBox AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.LicenseValue}" ToolTip="Enter License"  />
+                            <TextBox AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.LicenseValue,Mode=TwoWay}" ToolTip="Enter License"  />
                         </Border>
                         
                         <!-- Row 1 -->
@@ -80,7 +80,7 @@
                             <Label Content="CMS Key *" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF009688"  />
                         </Border>
                         <Border Grid.Row="1" Grid.Column="1"  BorderThickness="1"  BorderBrush="LightGray" Background="White" >
-                            <TextBox AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.EducationKey}" ToolTip="Enter License"  />
+                            <TextBox AcceptsReturn="True" VerticalAlignment="Center" TextWrapping="Wrap"  FontSize="18" Width="640" Text="{Binding Licensing.License.EducationKey,Mode=TwoWay}" ToolTip="Enter License"  />
                         </Border>
       
                     </Grid>

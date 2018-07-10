@@ -60,6 +60,8 @@ namespace SMS_Businness_Layer.Businness
             {
                 objSchoolInfo.id_offline =  objDatatable.Rows[0]["id_offline"] != DBNull.Value ? objDatatable.Rows[0]["id_offline"].ToString() : string.Empty;
                 objSchoolInfo.id_online = objDatatable.Rows[0]["id_online"] != DBNull.Value ? objDatatable.Rows[0]["id_online"].ToString() : string.Empty;
+                objSchoolInfo.EducationKey = objDatatable.Rows[0]["EducationKey"] != DBNull.Value ? objDatatable.Rows[0]["EducationKey"].ToString() : string.Empty;
+                objSchoolInfo.License = objDatatable.Rows[0]["License"] != DBNull.Value ? objDatatable.Rows[0]["License"].ToString() : string.Empty;
                 objSchoolInfo.database_id = objDatatable.Rows[0]["database_id"] != DBNull.Value ? objDatatable.Rows[0]["database_id"].ToString() : string.Empty;
                 objSchoolInfo.subdomain = objDatatable.Rows[0]["subdomain"] != DBNull.Value ? objDatatable.Rows[0]["subdomain"].ToString() : string.Empty;
                 objSchoolInfo.domain = objDatatable.Rows[0]["domain"] != DBNull.Value ? objDatatable.Rows[0]["domain"].ToString() : string.Empty;
@@ -86,13 +88,7 @@ namespace SMS_Businness_Layer.Businness
         {
             Boolean IsSuccess = false;
             try
-            {
-                objSchoolInfo.id_offline = Guid.NewGuid().ToString();
-                objSchoolInfo.id_online = Guid.Empty.ToString();
-                objSchoolInfo.created_on = DateTime.Now;
-                objSchoolInfo.EducationKey = "FreeTrial";
-                objSchoolInfo.License = "FreeTrial";
-
+            {                
                 DataTable objDatatable = MapSchoolInfoToDataTable(objSchoolInfo);
                 SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
                 objSqlParameter.TypeName = DBTableTypes.schools;

@@ -42,11 +42,13 @@ namespace CMS.Controllers
 
             GetGlobalObjects();
 
+            GetLicenseDetailsFromDB();
+
             //Initialize  Commands
             _validateLicenseCommand = new RelayCommand(ValidateLicense, CanValidateLicense);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
-        }
+        }        
 
         #endregion
 
@@ -120,16 +122,22 @@ namespace CMS.Controllers
 
                             GeneralMethods.ShowNotification("Notification", "License Validated Successfully");
 
-                            CreateSchoolGlobalObject();
+                            SchoolInfo.EducationKey = Licensing.License.EducationKey;
+                            SchoolInfo.License = Licensing.License.LicenseValue;
+                            if (SchoolSetupManager.SetSchooInfo(SchoolInfo))
+                            {
 
-                            //open Main window after authentication
-                            Main objMainWindow = new Main(Login);
-                            objMainWindow.Show();
-                            Window.Close();
+                                CreateSchoolGlobalObject();
 
-                            Main winMain = new Main();
-                            winMain.Show();
-                            Window.Close();
+                                //open Main window after authentication
+                                Main objMainWindow = new Main(Login);
+                                objMainWindow.Show();
+                                Window.Close();
+
+                                Main winMain = new Main();
+                                winMain.Show();
+                                Window.Close();
+                            }
                         }
                     }
                     else if (LicenseStatus == LicensingDefinitions.LicenseInValid)
@@ -202,7 +210,7 @@ namespace CMS.Controllers
         private void CreateSchoolGlobalObject()
         {
             //Maintain state of College Info
-            SchoolInfo = SchoolSetupManager.GetSchoolInfo();
+            //SchoolInfo = SchoolSetupManager.GetSchoolInfo();
             GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolInfo);
         }
 
@@ -210,6 +218,21 @@ namespace CMS.Controllers
         {
             //Get the Current Login
             Login = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+        }
+
+        private void GetLicenseDetailsFromDB()
+        {
+            try
+            {                
+                SchoolInfo = SchoolSetupManager.GetSchoolInfo();
+                Licensing.License.EducationKey = SchoolInfo.EducationKey;
+                Licensing.License.LicenseValue = SchoolInfo.License;
+            }
+            catch(Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                GeneralMethods.ShowDialog("Error", errorMessage, true);
+            }
         }
         #endregion
 

@@ -37,8 +37,11 @@ namespace CMS.Models
             }
         }
     }
-    public class LicenseModel 
-    {     
+    public class LicenseModel  : NotifyPropertyChanged
+    {
+        private string _EducationKey;
+        private string _LicenseValue;
+
         public LicenseModel()
         {
             RegistryFolder = @"SOFTWARE\TechnologFireOS\9a01c9fc-5b05-4d70-8ecf-aba9bc694f50";
@@ -50,8 +53,31 @@ namespace CMS.Models
         public string SaltValue { get; set; }
         public string AttemptsLeftKey { get; set; }
         public string LicenseKey { get; set; }
-        public string EducationKey { get; set; }
         public Int16 AttemptsLeftValue { get; set; }
-        public string LicenseValue { get; set; }
+
+        public string EducationKey
+        {
+            get
+            {
+                return _EducationKey;
+            }
+            set
+            {
+                _EducationKey = value;
+                OnPropertyChanged("EducationKey");
+            }
+        }
+        public string LicenseValue
+        {
+            get
+            {
+                return _LicenseValue;
+            }
+            set
+            {
+                _LicenseValue = value;
+                OnPropertyChanged("LicenseValue");
+            }
+        }
     }
 }

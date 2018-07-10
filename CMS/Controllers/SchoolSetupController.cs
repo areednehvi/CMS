@@ -35,6 +35,14 @@ namespace CMS.Controllers
             _SchoolSetup = new SchoolSetupModel()
             {
                 SchoolInfo = new SchoolModel()
+                {
+                    EducationKey = "FreeTrial",
+                    License = "FreeTrial",
+                    id_offline = Guid.NewGuid().ToString(),
+                    id_online = Guid.Empty.ToString(),
+                    created_on = DateTime.Now,
+                    database_id = Guid.Empty.ToString(),
+                }
             };
             _login = new LoginModel();
 

@@ -175,13 +175,13 @@ namespace CMS.Controllers
             {
                 LicenseModel objLicense = LicensingManager.GetLicense();
 
-                if (objLicense.AttemptsLeftValue == 0 && objLicense.LicenseValue == "FreeTrial") //Trial Expired
+                if (objLicense.AttemptsLeftValue <= 0 && objLicense.LicenseValue == "FreeTrial") //Trial Expired
                 {
                     GeneralMethods.ShowDialog("Free Trial Expired!", "Your Trial period has expired. Kindly enter license to continue using CMS.");                    
                     IsExpired = true;
 
                 }
-                else if (objLicense.AttemptsLeftValue == 0 && objLicense.LicenseValue != null) //prompt to validate Licence Expired online
+                else if (objLicense.AttemptsLeftValue <= 0 && objLicense.LicenseValue != null) //prompt to validate Licence Expired online
                 {
                     GeneralMethods.ShowDialog("License Checkup!", "kindly spare few minutes to validate your license.");                    
                     IsExpired = true;

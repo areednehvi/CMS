@@ -62,6 +62,8 @@ namespace SMS_Businness_Layer.Businness
                 objSchoolInfo.id_online = objDatatable.Rows[0]["id_online"] != DBNull.Value ? objDatatable.Rows[0]["id_online"].ToString() : string.Empty;
                 objSchoolInfo.EducationKey = objDatatable.Rows[0]["EducationKey"] != DBNull.Value ? objDatatable.Rows[0]["EducationKey"].ToString() : string.Empty;
                 objSchoolInfo.License = objDatatable.Rows[0]["License"] != DBNull.Value ? objDatatable.Rows[0]["License"].ToString() : string.Empty;
+                objSchoolInfo.LicenseStart = objDatatable.Rows[0]["LicenseStart"] != DBNull.Value ? Convert.ToDateTime(objDatatable.Rows[0]["LicenseStart"].ToString()) : (DateTime?)null;
+                objSchoolInfo.LicenseEnd = objDatatable.Rows[0]["LicenseEnd"] != DBNull.Value ? Convert.ToDateTime(objDatatable.Rows[0]["LicenseEnd"].ToString()) : (DateTime?)null;
                 objSchoolInfo.database_id = objDatatable.Rows[0]["database_id"] != DBNull.Value ? objDatatable.Rows[0]["database_id"].ToString() : string.Empty;
                 objSchoolInfo.subdomain = objDatatable.Rows[0]["subdomain"] != DBNull.Value ? objDatatable.Rows[0]["subdomain"].ToString() : string.Empty;
                 objSchoolInfo.domain = objDatatable.Rows[0]["domain"] != DBNull.Value ? objDatatable.Rows[0]["domain"].ToString() : string.Empty;
@@ -117,6 +119,8 @@ namespace SMS_Businness_Layer.Businness
                 table.Columns.Add("id_online", typeof(string));
                 table.Columns.Add("EducationKey", typeof(string));
                 table.Columns.Add("License", typeof(string));
+                table.Columns.Add("LicenseStart", typeof(string));
+                table.Columns.Add("LicenseEnd", typeof(string));
                 table.Columns.Add("database_id", typeof(string));
                 table.Columns.Add("subdomain", typeof(string));
                 table.Columns.Add("domain", typeof(string));
@@ -133,6 +137,8 @@ namespace SMS_Businness_Layer.Businness
                                 obj.id_online,
                                 obj.EducationKey,
                                 obj.License,
+                                obj.LicenseStart,
+                                obj.LicenseEnd,
                                 obj.database_id,
                                 obj.subdomain,
                                 obj.domain,

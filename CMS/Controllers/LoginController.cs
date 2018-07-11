@@ -174,14 +174,15 @@ namespace CMS.Controllers
             try
             {
                 LicenseModel objLicense = LicensingManager.GetLicense();
+                SchoolInfo = SchoolSetupManager.GetSchoolInfo();
 
-                if (objLicense.AttemptsLeftValue <= 0 && objLicense.LicenseValue == "FreeTrial") //Trial Expired
+                if (objLicense.LicenseValue == "FreeTrial" && objLicense.AttemptsLeftValue <= 0 ) //Trial Expired
                 {
                     GeneralMethods.ShowDialog("Free Trial Expired!", "Your Trial period has expired. Kindly enter license to continue using CMS.");                    
                     IsExpired = true;
 
                 }
-                else if (objLicense.AttemptsLeftValue <= 0 && objLicense.LicenseValue != null) //prompt to validate Licence Expired online
+                else if ((objLicense.LicenseValue != null && objLicense.AttemptsLeftValue <= 0) || DateTime.Now > SchoolInfo.LicenseEnd ) //prompt to validate Licence Expired online
                 {
                     GeneralMethods.ShowDialog("License Checkup!", "kindly spare few minutes to validate your license.");                    
                     IsExpired = true;
@@ -251,7 +252,7 @@ namespace CMS.Controllers
         private void CreateSchoolGlobalObject()
         {
             //Maintain state of College Info
-            SchoolInfo = SchoolSetupManager.GetSchoolInfo();
+            //SchoolInfo = SchoolSetupManager.GetSchoolInfo();
             GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolInfo);
         }
         private void CreateSessionGlobalObject()

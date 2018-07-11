@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,5 +43,32 @@ namespace SMS_Businness_Layer.Shared
             string returntext = System.Text.Encoding.UTF8.GetString(mybyte);
             return returntext;
         }
+
+        public static string httpGetWebRequest(string URI)
+        {
+            string returnedJSON;
+            try
+            {
+                if (!URI.StartsWith("http"))
+                    URI = "http://" + URI;
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(URI);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "GET";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    returnedJSON = sr.ReadToEnd();
+                }
+                return string.IsNullOrEmpty(returnedJSON) ? "[]" : returnedJSON;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
     }
 }

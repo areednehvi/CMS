@@ -1,5 +1,6 @@
 ﻿using CMS.Models;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using SMS_Businness_Layer.Shared;
 using SMS_Data_Layer.DataAccess;
 using System;
@@ -136,22 +137,17 @@ namespace SMS_Businness_Layer.Businness
             }
             return isSuccess;
         }
-        public static string ValidateLicense(LicenseModel objLicense)
+        public static LicenseOnline ValidateLicense(LicenseModel objLicense)
         {
+            LicenseOnline objLicenseObject = new LicenseOnline();
             string responseString = string.Empty;
             try
             {
 
                 string url = "http://kashmirhunt.com/areed/EducationCRM/index.php?EducationKey=" + objLicense.EducationKey + "&License=" + objLicense.LicenseValue;
-                WebRequest request = WebRequest.Create(url);
-                request.ContentType = "application/json; charset=utf-8";
-                request.Method = "GET";                
-                var response = (HttpWebResponse)request.GetResponse();
 
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    responseString = sr.ReadToEnd();
-                }
+                objLicenseObject = JsonConvert.DeserializeObject<LicenseOnline>(GeneralMethods.httpGetWebRequest(url));
+                
 
             }
             catch (Exception ex)
@@ -162,7 +158,7 @@ namespace SMS_Businness_Layer.Businness
             {
 
             }
-            return responseString;
+            return objLicenseObject;
         }
 
     }

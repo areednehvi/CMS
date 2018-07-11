@@ -108,14 +108,14 @@ namespace CMS.Controllers
         public void ValidateLicense(object obj)
         {
             Licensing.Status = LicensingDefinitions.Validating;
-            string LicenseStatus = string.Empty;
+            LicenseOnline objLicenseOnline = new LicenseOnline();
             try
             {
                 if (GeneralMethods.IsInternetAvailable())
                 {
-                    LicenseStatus = LicensingManager.ValidateLicense(Licensing.License);
+                    objLicenseOnline = LicensingManager.ValidateLicense(Licensing.License);
 
-                    if (LicenseStatus == LicensingDefinitions.LicenseValid)
+                    if (objLicenseOnline.Status == LicensingDefinitions.LicenseValid)
                     {
                         if (LicensingManager.SetLicense(Licensing.License.LicenseValue))
                         {
@@ -124,6 +124,8 @@ namespace CMS.Controllers
 
                             SchoolInfo.EducationKey = Licensing.License.EducationKey;
                             SchoolInfo.License = Licensing.License.LicenseValue;
+                            SchoolInfo.LicenseStart = objLicenseOnline.LicenseStart;
+                            SchoolInfo.LicenseEnd = objLicenseOnline.LicenseEnd ;
                             if (SchoolSetupManager.SetSchooInfo(SchoolInfo))
                             {
 
@@ -140,11 +142,11 @@ namespace CMS.Controllers
                             }
                         }
                     }
-                    else if (LicenseStatus == LicensingDefinitions.LicenseInValid)
+                    else if (objLicenseOnline.Status == LicensingDefinitions.LicenseInValid)
                         Licensing.Status = LicensingDefinitions.LicenseInValidMessage;
-                    else if (LicenseStatus == LicensingDefinitions.EducationKeyInvalid)
+                    else if (objLicenseOnline.Status == LicensingDefinitions.EducationKeyInvalid)
                         Licensing.Status = LicensingDefinitions.EducationKeyInvalidMessage;
-                    else if (LicenseStatus == LicensingDefinitions.LicenseExpired)
+                    else if (objLicenseOnline.Status == LicensingDefinitions.LicenseExpired)
                         Licensing.Status = LicensingDefinitions.LicenseExpiredMessage;
                 }
                 else

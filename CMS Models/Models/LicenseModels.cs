@@ -80,4 +80,10 @@ namespace CMS.Models
             }
         }
     }
+    public class LicenseOnline
+    {
+        public DateTime? LicenseStart { get; set; }
+        public DateTime? LicenseEnd { get; set; }
+        public string Status { get; set; }
+    }
 }

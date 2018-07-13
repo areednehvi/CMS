@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CMS.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace SMS_Models.Models
@@ -9,6 +11,11 @@ namespace SMS_Models.Models
         public StudentGenderRatioWidgetModel StudentGenderRatioWidget;
         public StudentPaymentAsPerMonthWidgetModel StudentPaymentAsPerMonthWidget;
         private GeneralInfoWidgetModel _GeneralInfoWidget;
+        private ObservableCollection<StudentCountAsPerCourseModel> _StudentCountAsPerCourseList;
+        private StudentCountAsPerCourseModel _SelectedItemInStudentCountAsPerCourseList;
+        private View _View;
+        private string _WidgetsVisibility;
+        private string _DrillDownViewVisibility;
         public GeneralInfoWidgetModel GeneralInfoWidget
         {
             get { return _GeneralInfoWidget; }
@@ -16,6 +23,67 @@ namespace SMS_Models.Models
             {
                 _GeneralInfoWidget = value;
                 OnPropertyChanged("GeneralInfoWidget");
+            }
+        }
+        public ObservableCollection<StudentCountAsPerCourseModel> StudentCountAsPerCourseList
+        {
+            get
+            {
+                return _StudentCountAsPerCourseList;
+            }
+            set
+            {
+                _StudentCountAsPerCourseList = value;
+                OnPropertyChanged("StudentCountAsPerCourseList");
+            }
+        }
+        public StudentCountAsPerCourseModel SelectedItemInStudentCountAsPerCourseList
+        {
+            get
+            {
+                return _SelectedItemInStudentCountAsPerCourseList;
+            }
+            set
+            {
+                _SelectedItemInStudentCountAsPerCourseList = value;
+                OnPropertyChanged("SelectedItemInStudentCountAsPerCourseList");
+            }
+        }
+
+        public View SelectedView
+        {
+            get
+            {
+                return _View;
+            }
+            set
+            {
+                _View = value;
+                OnPropertyChanged("SelectedView");
+            }
+        }
+        public string WidgetsVisibility
+        {
+            get
+            {
+                return _WidgetsVisibility;
+            }
+            set
+            {
+                _WidgetsVisibility = value;
+                OnPropertyChanged("WidgetsVisibility");
+            }
+        }
+        public string DrillDownViewVisibility
+        {
+            get
+            {
+                return _DrillDownViewVisibility;
+            }
+            set
+            {
+                _DrillDownViewVisibility = value;
+                OnPropertyChanged("DrillDownViewVisibility");
             }
         }
     }
@@ -118,5 +186,12 @@ namespace SMS_Models.Models
                 OnPropertyChanged("DataList");
             }
         }
+    }
+
+    public class StudentCountAsPerCourseModel : NotifyPropertyChanged
+    {       
+        public string Course { get; set; }
+        public Int64 StudentCount { get; set; }
+        public Guid GradeID { get; set; }
     }
 }

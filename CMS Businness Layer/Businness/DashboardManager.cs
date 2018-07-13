@@ -99,6 +99,49 @@ namespace SMS_Businness_Layer.Businness
             return obj;
         }
 
+        public static ObservableCollection<StudentCountAsPerCourseModel> GetStudentCountAsPerCourseList()
+        {
+            try
+            {
+                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetStudentCountAsPerCourseList);
+                return MapDatatableToStudentCountAsPerCourseObject(objDatable);
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        private static ObservableCollection<StudentCountAsPerCourseModel> MapDatatableToStudentCountAsPerCourseObject(DataTable objDatatable)
+        {
+            ObservableCollection<StudentCountAsPerCourseModel> objStudentCountAsPerCourseList = new ObservableCollection<StudentCountAsPerCourseModel>();
+            try
+            {               
+                foreach (DataRow row in objDatatable.Rows)
+                {
+                    StudentCountAsPerCourseModel obj = new StudentCountAsPerCourseModel();         
+                    obj.Course = row["Course"] != DBNull.Value ? Convert.ToString(row["Course"]) : string.Empty;
+                    obj.StudentCount = row["StudentCount"] != DBNull.Value ? Convert.ToInt64(row["StudentCount"]) : 0;                
+
+                    objStudentCountAsPerCourseList.Add(obj);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return objStudentCountAsPerCourseList;
+        }
     }
 }

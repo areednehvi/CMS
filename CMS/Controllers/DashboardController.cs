@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CMS.Controllers
@@ -13,6 +14,8 @@ namespace CMS.Controllers
     public class DashboardController : NotifyPropertyChanged
     {
         private DashboardModel _Dashboard;
+
+        private ICommand _showWidgetsCommand;
 
         public DashboardModel Dashboard
         {
@@ -24,17 +27,75 @@ namespace CMS.Controllers
             }
         }
         
+
         public DashboardController()
         {
+            //Initialize  Commands
+            _showWidgetsCommand = new RelayCommand(ShowWidgets, CanShowWidgets);
+
             this.Dashboard = new DashboardModel()
             {
                 StudentGenderRatioWidget = new StudentGenderRatioWidgetModel() { Widget = new WidgetModel() },
                 StudentPaymentAsPerMonthWidget = new StudentPaymentAsPerMonthWidgetModel() { Widget = new WidgetModel() },
-                GeneralInfoWidget = DashboardManager.GetDashboardGeneralInfoWidgetDetails()
-            };          
+                GeneralInfoWidget = DashboardManager.GetDashboardGeneralInfoWidgetDetails(),
+                DrillDownViewVisibility = "Collapsed"
+            };
+
+            
+            this.GetStudentCountAsPerCourseList();
+
+            //Subscribe to Model's Property changed event
+            this.Dashboard.PropertyChanged += (s, e) => {
+                if (e.PropertyName == "SelectedItemInStudentCountAsPerCourseList")
+                {
+                    if (this.Dashboard.SelectedItemInStudentCountAsPerCourseList != null)
+                    {
+                        Dashboard.SelectedView = ViewDefinitions.StudentsView;
+                        this.ShowView();                       
+                    }                    
+                }
+            };
         }
 
+        #region ShowWidgetsCommand
+        public ICommand ShowWidgetsCommand
+        {
+            get { return _showWidgetsCommand; }
+        }
+
+
+        public bool CanShowWidgets(object obj)
+        {
+            return true;
+        }
+
+        public void ShowWidgets(object obj)
+        {
+            try
+            {
+                Dashboard.WidgetsVisibility = "Visible";
+                Dashboard.DrillDownViewVisibility = "Collapsed";
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                GeneralMethods.ShowDialog("Error", errorMessage, true);
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        #endregion
+
         #region Private Functions
+        private void ShowView()
+        {
+            Dashboard.WidgetsVisibility = "Collapsed";
+            Dashboard.DrillDownViewVisibility = "Visible";
+        }
         public void SetupStudentRatioWidget()
         {
             try
@@ -105,6 +166,23 @@ namespace CMS.Controllers
         {
             ColumnSeries chartSeries = (ColumnSeries)sender;
             Keyvalue keyValue = (Keyvalue)chartSeries.SelectedItem;
+        }
+
+        private void GetStudentCountAsPerCourseList()
+        {
+            try
+            {
+                Dashboard.StudentCountAsPerCourseList = DashboardManager.GetStudentCountAsPerCourseList();
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                GeneralMethods.ShowDialog("Error", errorMessage, true);
+            }
+            finally
+            {
+
+            }
         }
         #endregion
 

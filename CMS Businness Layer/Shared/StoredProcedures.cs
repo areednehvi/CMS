@@ -28,6 +28,7 @@ namespace SMS_Businness_Layer.Shared
         public static string GetCurrentSession = "GetCurrentSession";
         public static string GetStudentGenderRatio = "GetStudentGenderRatio";
         public static string GetStudentPaymentsSumAsPerMonth = "GetStudentPaymentsSumAsPerMonth";
+        public static string GetStudentCountAsPerCourseList = "GetStudentCountAsPerCourseList";
         public static string UpdatePayment = "UpdatePayment";
         public static string MakePayment = "MakePayment";
         public static string UpdateFeeDue = "UpdateFeeDue";

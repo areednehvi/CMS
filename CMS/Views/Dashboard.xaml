@@ -6,67 +6,123 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CMS.Controllers"
         xmlns:local="clr-namespace:CMS.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         xmlns:ChartToolKit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" d:DesignWidth="2847.168" d:DesignHeight="1085.571"
         >
     <UserControl.Resources>
         <vm:DashboardController x:Key="DashboardController" />
+        <DataTemplate x:Key="StudentsView" DataType="{x:Type vm:MainController}">
+            <local:Students />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid DataContext="{Binding Source={StaticResource DashboardController}}">
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.Children>
-            <!-- Below is static chart -->
-            <GroupBox  Grid.Row="0" Grid.Column="0" Header="General Info" Margin="20,0,20,20" Height="250" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.Children>
-                        <StackPanel Grid.Row="0" Grid.Column="0" Background="LightGray" >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Image Source="../assets/images/userProfile.png" Margin="0,10,0,10" Width="60"  Height="70"/>
-                                <StackPanel>
-                                    <Label Content="Students" HorizontalAlignment="Center" Foreground="Black" Margin="0,5,0,0" FontFamily="Viner Hand ITC" FontWeight="Bold" FontSize="20" />
-                                    <Label Content="{Binding Dashboard.GeneralInfoWidget.StudentCount}" HorizontalAlignment="Center" Foreground="#FF009688" FontWeight="Bold" FontSize="30" />
+        <!-- Dashboard Widgets -->
+        <Grid Visibility="{Binding Dashboard.WidgetsVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.Children>
+                <!-- Below is static chart -->
+                <GroupBox  Grid.Row="0" Grid.Column="0" Header="General Info" Margin="20,0,20,20" Height="250" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.Children>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Background="LightGray" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="../assets/images/userProfile.png" Margin="0,10,0,10" Width="60"  Height="70"/>
+                                    <StackPanel>
+                                        <Label Content="Students" HorizontalAlignment="Center" Foreground="Black" Margin="0,5,0,0" FontFamily="Viner Hand ITC" FontWeight="Bold" FontSize="20" />
+                                        <Label Content="{Binding Dashboard.GeneralInfoWidget.StudentCount}" HorizontalAlignment="Center" Foreground="#FF009688" FontWeight="Bold" FontSize="30" />
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                            
-                        </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" Background="LightSlateGray" >
-         
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Grid.Column="0" Background="LightSlateGray" >
 
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Grid.Column="1" Background="LightGray"  >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Image Source="../assets/images/rupees.png" Margin="0,10,0,10" Width="60"  Height="70"/>
-                                <StackPanel>
-                                    <Label Content="Today" HorizontalAlignment="Center" Foreground="Black" Margin="0,5,0,0" FontFamily="Viner Hand ITC" FontWeight="Bold" FontSize="20" />
-                                    <Label Content="{Binding Dashboard.GeneralInfoWidget.TodaysRevenue}" HorizontalAlignment="Center" Foreground="#FF009688" FontWeight="Bold" FontSize="30" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Background="LightSlateGray" >
+
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" Background="LightSlateGray" >
+
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Background="LightGray"  >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="../assets/images/rupees.png" Margin="0,10,0,10" Width="60"  Height="70"/>
+                                    <StackPanel>
+                                        <Label Content="Today" HorizontalAlignment="Center" Foreground="Black" Margin="0,5,0,0" FontFamily="Viner Hand ITC" FontWeight="Bold" FontSize="20" />
+                                        <Label Content="{Binding Dashboard.GeneralInfoWidget.TodaysRevenue}" HorizontalAlignment="Center" Foreground="#FF009688" FontWeight="Bold" FontSize="30" />
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </Grid.Children>
-                </Grid>
-            </GroupBox>
-            <GroupBox  Grid.Row="0" Grid.Column="1" Header="Student Gender Ratio" x:Name="chart" Margin="0,0,20,20" Height="250" />
-            <GroupBox  Grid.Row="0" Grid.Column="2" Header="Student Gender Ratio" x:Name="chart3" Margin="0,0,20,20" Height="250" />
-            <GroupBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Revenue as per Month" x:Name="gbStudentPaymentAsPerMonthWidget" Margin="20,0,20,20" />
-            <GroupBox  Grid.Row="1" Grid.Column="2" Header="Student Gender Ratio" x:Name="gbStudentGenderRatioWidget" Margin="0,0,20,20" />
-        </Grid.Children>
+                        </Grid.Children>
+                    </Grid>
+                </GroupBox>
+                <GroupBox  Grid.Row="0" Grid.Column="1" Header="Student As Per Courses" x:Name="chart" Margin="0,0,20,20" Height="250" >
+                    <DataGrid Grid.Row="2" Cursor="Hand" x:Name="dataGridStudentCountAsPerCourseList" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Dashboard.StudentCountAsPerCourseList}"   VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding Dashboard.SelectedItemInStudentCountAsPerCourseList}">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF009688"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="17"/>
+                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="BorderBrush" Value="LightGray"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="ToolTip" Value="Click to sort"/>
+                                <Setter Property="BorderThickness" Value="0 0 3 0"/>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Course" Binding="{Binding Course}"/>
+                            <DataGridTextColumn Width="*" Header="Count" Binding="{Binding StudentCount}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox  Grid.Row="0" Grid.Column="2" Header="Empty" x:Name="chart3" Margin="0,0,20,20" Height="250" ></GroupBox>
+                <GroupBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Revenue as per Month" x:Name="gbStudentPaymentAsPerMonthWidget" Margin="20,0,20,20" />
+                <GroupBox  Grid.Row="1" Grid.Column="2" Header="Student Gender Ratio" x:Name="gbStudentGenderRatioWidget" Margin="0,0,20,20" />
+            </Grid.Children>
+        </Grid>
+        <!-- Dashboard View -->
+        <Grid Visibility="{Binding Dashboard.DrillDownViewVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.Children>
+                <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,10,5,5" >
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Content="Show Dashboard" ToolTip="Click to show Dashboard Widgets" Height="30" Background="#2f4050" FontSize="14" Command="{Binding ShowWidgetsCommand}" ></Button>
+                    </WrapPanel>
+                </materialDesign:Card>
+                <ContentControl DataContext="{Binding}" Grid.Row="1" >
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <!--<Setter Property="ContentTemplate" Value="{StaticResource StudentsView}" />-->
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Dashboard.SelectedView.Name,Mode=TwoWay}" Value="StudentsView">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource StudentsView}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </Grid.Children>
+        </Grid>
     </Grid>
 </UserControl>

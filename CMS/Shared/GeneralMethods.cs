@@ -34,6 +34,15 @@ namespace CMS.Shared
             return Application.Current.Properties[globalObjectName];
         }
 
+        public static void CreateTempObject(string tempObjectName, object objObject)
+        {
+            Application.Current.Properties[tempObjectName] = objObject;
+        }
+        public static object GetTempObject(string tempObjectName)
+        {
+            return Application.Current.Properties[tempObjectName];
+        }
+
         public static Boolean IsInternetAvailable()
         {
             try

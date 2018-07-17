@@ -378,7 +378,7 @@ namespace CMS.Models
 
     public class StudentsListFiltersModel : NotifyPropertyChanged
     {
-        private gradesModel _Grade;
+        private GradesListModel _Grade;
         private sectionsModel _Section;
         private List<GradesListModel> _Grades;
         private List<sectionsModel> _Sections;
@@ -414,7 +414,7 @@ namespace CMS.Models
             }
 
         }
-        public gradesModel Grade
+        public GradesListModel Grade
         {
             get
             {

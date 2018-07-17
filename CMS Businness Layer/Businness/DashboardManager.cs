@@ -127,7 +127,8 @@ namespace SMS_Businness_Layer.Businness
                 {
                     StudentCountAsPerCourseModel obj = new StudentCountAsPerCourseModel();         
                     obj.Course = row["Course"] != DBNull.Value ? Convert.ToString(row["Course"]) : string.Empty;
-                    obj.StudentCount = row["StudentCount"] != DBNull.Value ? Convert.ToInt64(row["StudentCount"]) : 0;                
+                    obj.StudentCount = row["StudentCount"] != DBNull.Value ? Convert.ToInt64(row["StudentCount"]) : 0;
+                    obj.GradeID = row["GradeID"] != DBNull.Value ? Guid.Parse(Convert.ToString(row["GradeID"])) : Guid.Empty;
 
                     objStudentCountAsPerCourseList.Add(obj);
                 }

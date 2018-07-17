@@ -108,6 +108,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Shared\GeneralMethods.cs" />
+    <Compile Include="Shared\TempObjects.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\GlobalObjects.cs" />

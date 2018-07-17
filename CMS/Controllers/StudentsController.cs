@@ -16,6 +16,7 @@ namespace CMS.Controllers
     {
         #region Fields
         private StudentsModel _Students;
+        private StudentCountAsPerCourseModel _StudentCountAsPerCourseModel;
 
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
@@ -69,7 +70,10 @@ namespace CMS.Controllers
                 this.GetStudentsList();
             };
 
-
+            //Check if flow from Dashboard widget 'SelectedItemInStudentCountAsPerCourseList'
+            _StudentCountAsPerCourseModel = (StudentCountAsPerCourseModel)GeneralMethods.GetGlobalObject(TempObjects.SelectedItemInStudentCountAsPerCourseListWidgetOnDashboard);
+            if (_StudentCountAsPerCourseModel != null)
+                this.Students.StudentsListFilters.Grade = Students.GradesList.Find(x => x.id_offline == _StudentCountAsPerCourseModel.GradeID.ToString());
 
             //Get Initial Students list
             this.GetStudentsList();
@@ -416,7 +420,7 @@ namespace CMS.Controllers
             Students.StudentsListFilters = new StudentsListFiltersModel()
             {
                 GradesList = GradesSetupManager.GetAllGrades(IncludeAllOption : true),
-                SectionsList = SectionsSetupManager.GetAllSections(IncludeAllOption: true),
+                SectionsList = SectionsSetupManager.GetAllSections(IncludeAllOption: true),                
             };
         }
 

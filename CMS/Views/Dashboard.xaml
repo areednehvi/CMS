@@ -105,11 +105,11 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.Children>
-                <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,10,5,5" >
+                <!--<materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,10,5,5" >
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Button Content="Show Dashboard" ToolTip="Click to show Dashboard Widgets" Height="30" Background="#2f4050" FontSize="14" Command="{Binding ShowWidgetsCommand}" ></Button>
                     </WrapPanel>
-                </materialDesign:Card>
+                </materialDesign:Card>-->
                 <ContentControl DataContext="{Binding}" Grid.Row="1" >
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">

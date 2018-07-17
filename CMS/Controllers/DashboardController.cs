@@ -51,6 +51,7 @@ namespace CMS.Controllers
                     if (this.Dashboard.SelectedItemInStudentCountAsPerCourseList != null)
                     {
                         Dashboard.SelectedView = ViewDefinitions.StudentsView;
+                        GeneralMethods.CreateTempObject(TempObjects.SelectedItemInStudentCountAsPerCourseListWidgetOnDashboard, this.Dashboard.SelectedItemInStudentCountAsPerCourseList);
                         this.ShowView();                       
                     }                    
                 }

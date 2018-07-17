@@ -24,5 +24,6 @@ namespace CMS.Shared
         public static View FeesStatementReportView = new View() { Name = "FeesStatementReportView", Title = "Fees Statement Report" };
         public static View BalanceFeesReportView = new View() { Name = "BalanceFeesReportView", Title = "Balance Fees Report" };
         public static View TransactionsReportView = new View() { Name = "TransactionsReportView", Title = "Transactions Report" };
+        public static View EmptyView = new View() { Name = "EmptyView", Title = "Empty View" };
     }
 }

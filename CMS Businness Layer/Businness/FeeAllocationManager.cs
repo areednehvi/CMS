@@ -177,7 +177,7 @@ namespace SMS_Businness_Layer.Businness
                         
                         foreach (grade_feesModel objGradeFees in objGradeFeesList)
                         {
-                            gradesModel grade = new gradesModel();
+                            GradesListModel grade = new GradesListModel();
                             grade = AllGradesList.Find(x => x.id_offline == objGradeFees.grade_id);
                             StudentsListFiltersModel StudentsListFilters = new StudentsListFiltersModel()
                             { 

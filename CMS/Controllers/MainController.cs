@@ -186,6 +186,8 @@ namespace CMS.Controllers
 
         public void LoadView(object obj)
         {
+            SelectedView = ViewDefinitions.EmptyView; // used because in case we drill down on any widget on Dashboard
+
             View objView = (View)obj;
             SelectedView = objView;
             this.GetSettings();

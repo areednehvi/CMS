@@ -73,7 +73,10 @@ namespace CMS.Controllers
             //Check if flow from Dashboard widget 'SelectedItemInStudentCountAsPerCourseList'
             _StudentCountAsPerCourseModel = (StudentCountAsPerCourseModel)GeneralMethods.GetGlobalObject(TempObjects.SelectedItemInStudentCountAsPerCourseListWidgetOnDashboard);
             if (_StudentCountAsPerCourseModel != null)
+            {
                 this.Students.StudentsListFilters.Grade = Students.GradesList.Find(x => x.id_offline == _StudentCountAsPerCourseModel.GradeID.ToString());
+                GeneralMethods.CreateTempObject(TempObjects.SelectedItemInStudentCountAsPerCourseListWidgetOnDashboard, null);
+            }
 
             //Get Initial Students list
             this.GetStudentsList();

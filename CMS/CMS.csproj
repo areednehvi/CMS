@@ -130,6 +130,9 @@
     <Compile Include="Views\CoursesSetup.xaml.cs">
       <DependentUpon>CoursesSetup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EmptyView.xaml.cs">
+      <DependentUpon>EmptyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\License.xaml.cs">
       <DependentUpon>License.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CoursesSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EmptyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

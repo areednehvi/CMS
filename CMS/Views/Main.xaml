@@ -62,6 +62,9 @@
         <DataTemplate x:Key="TransactionsReportView" DataType="{x:Type vm:MainController}">
             <local:TransactionsReport />
         </DataTemplate>
+        <DataTemplate x:Key="EmptyView" DataType="{x:Type vm:MainController}">
+            <local:EmptyView />
+        </DataTemplate>
         
     </Window.Resources>
 
@@ -292,6 +295,9 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding SelectedView.Name,Mode=TwoWay}" Value="TransactionsReportView">
                                 <Setter Property="ContentTemplate" Value="{StaticResource TransactionsReportView}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedView.Name,Mode=TwoWay}" Value="EmptyView">
+                                <Setter Property="ContentTemplate" Value="{StaticResource EmptyView}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

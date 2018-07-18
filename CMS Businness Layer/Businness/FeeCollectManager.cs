@@ -164,7 +164,7 @@ namespace SMS_Businness_Layer.Businness
                     Font fontTableCell = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.NORMAL);
                     Font fontHeading = new Font(Font.FontFamily.COURIER, 16, Font.BOLD);  
 
-                    writer.PageEvent = new PDFWriterEvents("Smart College", fontSize: 30f, xPosition: 150, yPosition: 250);
+                    writer.PageEvent = new PDFWriterEvents("CMS", fontSize: 30f, xPosition: 150, yPosition: 250);
                     doc.Open();
 
                     //Header with logo
@@ -183,7 +183,7 @@ namespace SMS_Businness_Layer.Businness
 
                         PdfPHeaderCell headerCell = new PdfPHeaderCell()
                         {
-                            Phrase = new Phrase("Smart College", font: fontHeading),
+                            Phrase = new Phrase("CMS Receipt", font: fontHeading),
                             Border = Rectangle.NO_BORDER,
                             Colspan = 3
                         };

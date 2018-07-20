@@ -173,8 +173,9 @@ namespace SMS_Businness_Layer.Businness
                 //Header with logo
                 {
                     PdfPTable tableHeader = new PdfPTable(4);
+                    string logoPath = "./assets/images/receiptLogo.jpg";
 
-                    Image logo = Image.GetInstance("../assets/images/receiptLogo.jpg");
+                    Image logo = Image.GetInstance(logoPath);
                     logo.ScalePercent(30f);
 
                     PdfPCell cell = new PdfPCell(logo)

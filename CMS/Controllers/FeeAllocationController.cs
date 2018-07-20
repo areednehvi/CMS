@@ -71,7 +71,7 @@ namespace CMS.Controllers
             //Subscribe to Model's Property changed event
             this.FeeAllocation.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == "SelectedItemInFeeAllocationList")
+                /*if (e.PropertyName == "SelectedItemInFeeAllocationList")
                 {
                     FeeAllocation.Fees = FeeAllocation.SelectedItemInFeeAllocationList;
                     if (FeeAllocation.Fees != null)
@@ -84,7 +84,7 @@ namespace CMS.Controllers
 
                     }
                     this.ShowForm();
-                }
+                }*/
                 //Subscribe to Model's Property changed event
                 if (this.FeeAllocation.Fees != null)
                 {

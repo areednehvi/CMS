@@ -537,8 +537,8 @@ namespace CMS.Controllers
                     Shared.GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
                     if(FeeCollectManager.PrintReceipt(MakePayment, CurrentLogin, SchoolInfo, FeeCollectionStudentList))
                     {
-
-                    }                    
+                    }
+                    Window.Close();
                 }
             }
             catch (Exception ex)
